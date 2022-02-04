@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="SNI_DMS_Documents:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/SNI_DMS_Documents_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="SNI_DMS_Documents" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.20" />
+          <element id="library" level="project" name="Maven: io.jsonwebtoken:jjwt-api:0.11.2" />
+          <element id="library" level="project" name="lib2" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="SNI_DMS_Documents/web/Web" />
+      <element id="javaee-facet-resources" facet="SNI_DMS_Documents/web/Web2" />
+      <element id="javaee-facet-resources" facet="SNI_DMS_Documents/web/Web3" />
+      <element id="javaee-facet-resources" facet="SNI_DMS_Documents/web/Web4" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,21 @@
+/*.container {*/
+/*    position: absolute;*/
+/*    left: 50%;*/
+/*    top: 40px;*/
+/*    transform: translate(-50%, 0);*/
+/*    perspective: 1000px;*/
+/*    width: 330px;*/
+/*    height: 375px;*/
+/*}*/
+
+.main-div{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.error-span{
+    font-style: italic;
+    color: red;
+    font-size: 12px;
+}

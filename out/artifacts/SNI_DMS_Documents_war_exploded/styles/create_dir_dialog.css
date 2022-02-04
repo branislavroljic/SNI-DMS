@@ -1,0 +1,4 @@
+#dir_name:invalid + #crate_dir_confirm {
+    opacity: 0.5;
+    pointer-events: none;
+}
