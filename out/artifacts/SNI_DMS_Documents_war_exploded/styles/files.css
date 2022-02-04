@@ -14,6 +14,16 @@
     left: 20px;
     top: 80px;
 }
+#move-here-button{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+#cancel-move-button{
+    position: absolute;
+    right: 20px;
+    top: 80px;
+}
 
 .header {
     height: 70px;

@@ -1,4 +1,5 @@
-<%--document-admin tab--%>
+<%@ page import="bane.model.User" %>
+<%@ page import="bane.model.Role" %><%--document-admin tab--%>
 <div class="mdl-tabs__panel" id="document-admins-tab">
     <button  id="add-doc-admin"
              class="dialog-button fab-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
@@ -27,7 +28,7 @@
             <td class="mdl-data-table__cell--non-numeric"><%= u.getUsername() %></td>
             <td class="mdl-data-table__cell--non-numeric"><%= u.getRootDir() %></td>
             <td>
-                <button type="button" onclick="deleteUser(this,  <%= u.getId() %>)" class="mdl-button mdl-js-button mdl-button--icon">
+                <button type="button"  onclick="deleteUser(this, '<%= u.getUsername()%>', <%= u.getId() %>)" class="mdl-button mdl-js-button mdl-button--icon">
                     <i class="material-icons">delete</i>
                 </button>
             </td>

@@ -10,23 +10,35 @@ function editClient(ctl){
 
     console.log(permissions);
 
+    resetForm();
     let elements = document.getElementById("new_client_form").elements;
-    elements.username.value = username;
-    elements.ip_address.value = ipAddress;
-    elements.root_dir.value = rootDir;
+
+    $('#client_username').val(username);
+    $('#client_username').parent().addClass('is-dirty')
+    $('#client_ip_address').val(ipAddress);
+    $('#client_ip_address').parent().addClass('is-dirty')
+    $('#client_password').val('');
+    $('#client_root_dir').val(rootDir);
+    $('#client_root_dir').parent().addClass('is-dirty')
+
+
+   document.getElementById("client_root_dir").setAttribute("readonly", 'true');
+
+    uncheckCheckboxes();
     //permissions
-    $("#C").prop("checked", permissions.includes("C"));
-    $("#R").prop("checked", permissions.includes("R"));
-    $("#U").prop("checked", permissions.includes("U"));
-    $("#D").prop("checked", permissions.includes("D"));
+    // $("#C").prop("checked", permissions.includes("C"));
+    // $("#R").prop("checked", permissions.includes("R"));
+    // $("#U").prop("checked", permissions.includes("U"));
+    // $("#D").prop("checked", permissions.includes("D"));
 
     let dialog = document.getElementById("dialog_client");
+
     $("#edit_client_confirm").off('click').on('click', function () {
         updateClient(ctl, Id);
     });
     $("#edit_client_confirm").show();
     $("#add_client_confirm").hide('fast');
-    $("#client_root_dir").css("display", "none");
+
     dialog.showModal();
 }
 
@@ -40,8 +52,12 @@ $(function () {
 
 $(function () {
     $("#add-client").click(function () {
+        console.log("add click");
+
         let dialog = document.getElementById("dialog_client");
         resetForm();
+        document.getElementById("client_root_dir").setAttribute("readonly", "false");
+        uncheckCheckboxes();
         $("#add_client_confirm").show();
         $("#edit_client_confirm").hide('fast');
         $("#client_root_dir").css("display", "block");
@@ -51,6 +67,7 @@ $(function () {
 
 $(function (){
     $("#add_client_confirm").click(function () {addClient();});
+    resetForm();
 })
 
 $(function () {
@@ -63,9 +80,9 @@ $(function () {
 
 function addClient(){
     let new_client_form = $("#new_client_form");
-    new_client_form.validate();
-    if(!new_client_form.valid())
-        return;
+    // new_client_form.validate();
+    // if(!new_client_form.valid())
+    //     return;
     $.ajax({
         type: "POST",
         url: "?action=add_client",
@@ -91,7 +108,7 @@ function addClient(){
                 "            <td class=\"mdl-data-table__cell--non-numeric\">" + newClient.ipAddress + "</td>\n" +
                 "            <td class=\"mdl-data-table__cell--non-numeric\">" + newClient.permissions + "</td>\n" +
                 "            <td>\n" +
-                "                <button type=\"button\" onclick=\"deleteUser(this)\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
+                "                <button type=\"button\" onclick=\"deleteUser(this,'" + newClient.username + "', " + newClient.id + " )\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
                 "                    <i class=\"material-icons\">delete</i>\n" +
                 "                </button>\n" +
                 "            </td>\n" +
@@ -121,27 +138,26 @@ function addClient(){
 function updateClient(ctl, Id){
     console.log("Inside editClient(ctl, id)")
     let new_client_form = $("#new_client_form");
-    new_client_form.validate();
-    if(!new_client_form.valid())
-        return;
+    // new_client_form.validate();
+    // if(!new_client_form.valid())
+    //     return;
     $.ajax({
         type: "POST",
         url: "?action=edit_client&Id=" + Id,
         data: new_client_form.serialize(),
         cache: false,
         success: function (jsonText) {
-            console.log("bio ovdje");
+
             let updatedClient = jsonText;
 
             $(ctl).parents("tr").children()[0].innerHTML = Id;
             $(ctl).parents("tr").children()[2].innerHTML = updatedClient.username;
-            $(ctl).parents("tr").children()[3].innerHTML = updatedClient.rootDir;
             $(ctl).parents("tr").children()[4].innerHTML = updatedClient.ipAddress;
             $(ctl).parents("tr").children()[5].innerHTML = updatedClient.permissions;
             var notification = document.querySelector('.mdl-js-snackbar');
             notification.MaterialSnackbar.showSnackbar(
                 {
-                    message: "Client sucessfully updated!"
+                    message: "Client successfully updated!"
                 }
             );
             let dialog = document.getElementById("dialog_client");
@@ -161,6 +177,12 @@ function updateClient(ctl, Id){
 
 function resetForm(){
     document.getElementById("new_client_form").reset();
+}
+function uncheckCheckboxes(){
+   document.getElementById("C").parentElement.MaterialCheckbox.uncheck();
+   document.getElementById("R").parentElement.MaterialCheckbox.uncheck();
+   document.getElementById("U").parentElement.MaterialCheckbox.uncheck();
+   document.getElementById("D").parentElement.MaterialCheckbox.uncheck();
 }
 
 /*$(function () {

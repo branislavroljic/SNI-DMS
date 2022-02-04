@@ -23,7 +23,7 @@
             <button type="button" onclick="editAdmin(this)" class="mdl-button mdl-js-button mdl-button--icon">
                 <i class="material-icons">edit</i>
             </button>
-            <button type="button" onclick="deleteUser(this,  <%= u.getId() %>)" class="mdl-button mdl-js-button mdl-button--icon">
+            <button type="button"  onclick="deleteUser(this, '<%= u.getUsername()%>', <%= u.getId() %>)" class="mdl-button mdl-js-button mdl-button--icon">
                 <i class="material-icons">delete</i>
             </button>
         </div>

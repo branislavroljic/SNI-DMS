@@ -7,10 +7,15 @@ function editDocAdmin(ctl){
     let rootDir = $(ctl).parents("tr").children()[3].innerHTML;
 
     let elements = document.getElementById("new_doc_admin_form").elements;
-    elements.username.value = username;
-    elements.root_dir.value = rootDir;
+
+    $('#doc_admin_username').val(username);
+    $('#doc_admin_username').parent().addClass('is-dirty')
+    $('#doc_admin_password').val('');
+    $('#doc_admin_root_dir').val(rootDir);
+    $('#doc_admin_root_dir').parent().addClass('is-dirty')
 
     let dialog = document.getElementById("dialog_doc_admin");
+
     $("#edit_doc_admin_confirm").off('click').on('click', function () {
         updateDocAdmin(ctl, Id);
     });
@@ -54,9 +59,9 @@ $(function () {
 
 function addDocAdmin() {
     let new_doc_admin_form = $("#new_doc_admin_form");
-    new_doc_admin_form.validate();
-    if (!new_doc_admin_form.valid())
-        return;
+    // new_doc_admin_form.validate();
+    // if (!new_doc_admin_form.valid())
+    //     return;
     console.log("doc admin form is valid");
             $.ajax({
                 type: "POST",
@@ -78,7 +83,7 @@ function addDocAdmin() {
                         "            <td class=\"mdl-data-table__cell--non-numeric\">" + newDocAdmin.username + "</td>\n" +
                         "            <td class=\"mdl-data-table__cell--non-numeric\">" + newDocAdmin.rootDir + "</td>\n" +
                         "                <td>\n" +
-                        "                    <button type=\"button\" onclick=\"deleteUser(this)\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
+                        "                    <button type=\"button\" onclick=\"deleteUser(this,'" + newDocAdmin.username + "', " + newDocAdmin.id + " )\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
                         "                        <i class=\"material-icons\">delete</i>\n" +
                         "                    </button>\n" +
                         "                </td>\n" +
@@ -111,9 +116,9 @@ function addDocAdmin() {
 function updateDocAdmin(ctl, Id){
     console.log("Inside editClient(ctl, id)")
     let new_doc_admin_form= $("#new_doc_admin_form");
-    new_doc_admin_form.validate();
-    if(!new_doc_admin_form.valid())
-        return;
+    // new_doc_admin_form.validate();
+    // if(!new_doc_admin_form.valid())
+    //     return;
     $.ajax({
         type: "POST",
         url: "?action=edit_doc_admin&Id=" + Id,

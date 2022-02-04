@@ -157,9 +157,9 @@ public class AuthServletController extends HttpServlet {
                 cookieService.remove(validCookie.getValue());
                 request.getSession().invalidate();
                 if(serviceURL.equals(USERS_APP_URL)){
-                    address = "WEB-INF/pages/users_login.jsp";
+                    address = "/WEB-INF/pages/users_login.jsp";
                 }else { // DOCS_APP_URL
-                    address = "WEB-INF/pages/documents_login.jsp";
+                    address = "/WEB-INF/pages/documents_login.jsp";
                 }
                 RequestDispatcher dispatcher = request.getRequestDispatcher(address);
                 dispatcher.forward(request, response);
@@ -168,8 +168,8 @@ public class AuthServletController extends HttpServlet {
         else if(action!= null && TOKEN_LOGIN_ACTION.equals(action)){
 
                 String requestToken = request.getParameter("token");
-            System.out.println("serviceURL je u roken login: " + serviceURL);
-            System.out.println("serviceURL je u roken login IZ SESIJE: " + request.getSession().getAttribute("serviceURL"));
+//            System.out.println("serviceURL je u roken login: " + serviceURL);
+//            System.out.println("serviceURL je u roken login IZ SESIJE: " + request.getSession().getAttribute("serviceURL"));
 
                 //get user from session, check if tokens match and the token did not expire
                 User user = (User) session.getAttribute("user");
@@ -231,15 +231,16 @@ public class AuthServletController extends HttpServlet {
 
                 if(user == null){
                     if(serviceURL.equals(USERS_APP_URL)){
-                        address = "WEB-INF/pages/users_login.jsp";
+                        address = "/WEB-INF/pages/users_login.jsp";
                     }else { // DOCS_APP_URL
-                        address = "WEB-INF/pages/documents_login.jsp";
+                        address = "/WEB-INF/pages/documents_login.jsp";
                     }
 
 
 
                     request.getSession().setAttribute("serviceURL", serviceURL);
                     RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+                    System.out.println("user je null, forwardam na: " + address);
                     dispatcher.forward(request, response);
                 }else {
 
@@ -250,9 +251,9 @@ public class AuthServletController extends HttpServlet {
                 System.out.println("Nije prosao, ili cookie nije validan ili nema usera u sesiji!");
 
                 if(serviceURL.equals(USERS_APP_URL)){
-                    address = "WEB-INF/pages/users_login.jsp";
+                    address = "/WEB-INF/pages/users_login.jsp";
                 }else { // DOCS_APP_URL
-                    address = "WEB-INF/pages/documents_login.jsp";
+                    address = "/WEB-INF/pages/documents_login.jsp";
                 }
 
 
@@ -262,7 +263,7 @@ public class AuthServletController extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } else {
-            address = "WEB-INF/pages/error.jsp";
+            address = "/WEB-INF/pages/error.jsp";
             RequestDispatcher dispatcher = request.getRequestDispatcher(address);
             dispatcher.forward(request, response);
         }
@@ -336,12 +337,17 @@ public class AuthServletController extends HttpServlet {
         }else{
             request.getSession().setAttribute("notification", "Invalid username or password, or access is denied!");
             if(serviceURL.equals(USERS_APP_URL)){
-                address = "WEB-INF/pages/users_login.jsp";
+                address = "/WEB-INF/pages/users_login.jsp";
             }else { // DOCS_APP_URL
-                address = "WEB-INF/pages/documents_login.jsp";
+                address = "/WEB-INF/pages/documents_login.jsp";
             }
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 }

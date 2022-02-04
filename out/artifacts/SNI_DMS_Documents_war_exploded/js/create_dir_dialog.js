@@ -14,6 +14,15 @@ $(function (){
     });
 });
 
+
+$(function () {
+    let dialog = document.getElementById("dialog_create_dir");
+    dialog.querySelector('.close').addEventListener('click', function() {
+        dialog.close();
+    });
+});
+
+
 /*handles confirmation of directory creation*/
 $(function (){
     $("#crate_dir_confirm").click(function (){
@@ -26,29 +35,35 @@ $(function (){
             success: function (jsonText) {
                 let jsonFile = JSON.parse(jsonText);
                 let dirName = jsonFile.fileName;
+                let dirPath = jsonFile.filePath;
                 let dirSize = jsonFile.size;
                 let dirLastModifTime = jsonFile.lastModifiedTime;
-                document.getElementById("files-tbody").innerHTML += "<td>\n" +
-                    "    <button type=\"button\" onclick=\"post('?action=list_files',{ 'fileName' :  " + dirName + "})\"\n" +
-                    "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-                    "        <i class=\"material-icons\">folder</i>\n" +
-                    "    </button>\n" +
-                    "</td>\n" +
-                    "<td name=\"username\" class=\"mdl-data-table__cell--non-numeric\">" +  dirName +"\n" +
-                    "</td>\n" +
-                    "<td class=\"mdl-data-table__cell--non-numeric\">" + dirLastModifTime +"\n" +
-                    "</td>\n" +
-                    "<td class=\"mdl-data-table__cell--non-numeric\">"  +  dirSize + "\n" +
-                    "</td>\n" +
-                    "    <td></td>\n" +
-                    "<td>\n" +
-                    "    <button onclick=\"deleteFileClick(this, " + dirName + " )\" type=\"button\"\n" +
-                    "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-                    "        <i class=\"material-icons\">delete</i>\n" +
-                    "    </button>\n" +
-                    "</td>\n" +
-                    "</tr>";
-
+                let tr = document.createElement("tr");
+                    tr.innerHTML +=
+                        "    <td>\n" +
+                        "        <button type=\"button\" onclick=\"listFiles('" + dirPath + "', 'CRUD', 'A' )\"\n" +
+                        "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
+                        "            <i class=\"material-icons\">folder</i>\n" +
+                        "        </button>\n" +
+                        "    </td>\n" +
+                        "    <td name=\"filename\" class=\"mdl-data-table__cell--non-numeric\">\n" +
+                        "        " + dirName + "\n" +
+                        "    </td>\n" +
+                        "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
+                        "       " + dirLastModifTime + "\n" +
+                        "    </td>\n" +
+                        "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
+                        "        " + dirSize + "\n" +
+                        "    </td>\n" +
+                        "    <td></td>\n" +
+                        "    <td></td>";
+                        tr.innerHTML += "<td>\n" +
+                            "        <button onclick=\"deleteFileClick(this, '" + dirName + "' )\" type=\"button\"\n" +
+                            "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
+                            "            <i class=\"material-icons\">delete</i>\n" +
+                            "        </button>\n" +
+                            "    </td>"
+                document.getElementById("files-tbody").append(tr);
                 const notification = document.querySelector('.mdl-js-snackbar');
                 notification.MaterialSnackbar.showSnackbar(
                     {

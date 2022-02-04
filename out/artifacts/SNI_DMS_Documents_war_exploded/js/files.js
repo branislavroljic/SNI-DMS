@@ -1,21 +1,19 @@
-function openFolder(ctl) {
-    alert($(ctl).children()[1].innerHTML);
-    let fileName = $(ctl).children()[1].innerHTML;
-    let form = document.getElementById(fileName);
-    alert(form.action);
-    form.submit();
-    /*$.ajax({
-        type: "POST",
-        url: "?action=list_files&file=" + fileName,
-        cache: false,
-        success: function (jsonText) {
-
-        },
-        error : function (){
-
-        }
-    }*/
-}
+// function openFolder(ctl) {
+//     alert($(ctl).children()[1].innerHTML);
+//     let fileName = $(ctl).children()[1].innerHTML;
+//     let form = document.getElementById(fileName);
+//     alert(form.action);
+//     form.submit();
+//     /*$.ajax({
+//         type: "POST",
+//         url: "?action=list_files&file=" + fileName,
+//         cache: false,
+//         success: function (jsonText) {
+//         },
+//         error : function (){
+//         }
+//     }*/
+// }
 
 function listFiles(directoryName, permissions, role) {
     let dirInfo = {
@@ -34,9 +32,9 @@ function listFiles(directoryName, permissions, role) {
             let filesBody = document.getElementById("files-tbody");
             document.getElementById("curr-dir-text").innerHTML = directoryName;
             filesBody.innerHTML = "";
-            filesBody.innerHTML += "<form enctype=\"multipart/form-data\" id=\"file-update-form\">\n" +
-                "                                    <input type=\"file\" name=\"file\" id=\"fileUpdateInput\" style=\"display: none\">\n" +
-                "                                </form>";
+            // filesBody.innerHTML += "<form enctype=\"multipart/form-data\" id=\"file-update-form\">\n" +
+            //     "                                    <input type=\"file\" name=\"file\" id=\"fileUpdateInput\" style=\"display: none\">\n" +
+            //     "                                </form>";
             console.log(jsonFiles);
             for (let i in jsonFiles) {
                 //console.log(jsonFiles[i]);
@@ -45,13 +43,17 @@ function listFiles(directoryName, permissions, role) {
                 const isDir = jsonFiles[i].isDir;
                 const lastModifiedTime = jsonFiles[i].lastModifiedTime;
                 const size = jsonFiles[i].size;
+
+                console.log(filePath);
+
                 let tr = document.createElement("tr");
+                tr.innerHTML = "<td name=\"filePath\" style=\"display: none;\">" + filePath +"</td>"
                 if (isDir) {
                     console.log("dir je : " + fileName);
 
-                    tr.innerHTML = "<tr>\n" +
+                    tr.innerHTML +=
                         "    <td>\n" +
-                        "        <button type=\"button\" onclick=\"listFiles('" + fileName + "', ' " + permissions + "', '" + role + "' )\"\n" +
+                        "        <button type=\"button\" onclick=\"listFiles('" + filePath + "', ' " + permissions + "', '" + role + "' )\"\n" +
                         "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
                         "            <i class=\"material-icons\">folder</i>\n" +
                         "        </button>\n" +
@@ -111,7 +113,7 @@ function listFiles(directoryName, permissions, role) {
                         console.log("Role is not C");
                         tr.innerHTML +=
                             "    <td>\n" +
-                            "        <button onclick=\"moveFileClick(this, '" + fileName + "' )\" type=\"button\"\n" +
+                            "        <button onclick=\"moveFileClick('" + filePath + "' )\" type=\"button\"\n" +
                             "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
                             "            <i class=\"material-icons\">drive_file_move</i>\n" +
                             "        </button>\n" +
@@ -203,10 +205,13 @@ function post(path, params) {
 /*delete file*/
 function deleteFileClick(ctl, deleteFileName) {
 
+    console.log(deleteFileName);
+
     let res = confirm("Do you want to delete file: " + deleteFileName);
     let file = {
         fileName: deleteFileName
     }
+
     if (res) {
         $.ajax({
             type: "DELETE",
@@ -241,9 +246,9 @@ function backButtonClick(permissions, role) {
             let filesBody = document.getElementById("files-tbody");
             document.getElementById("curr-dir-text").innerHTML = "rijesi ovo";
             filesBody.innerHTML = "";
-            filesBody.innerHTML += "<form enctype=\"multipart/form-data\" id=\"file-update-form\">\n" +
-                "        <input type=\"file\" name=\"file\" id=\"fileUpdateInput\" style=\"display: none\">\n" +
-                "    </form>";
+            // filesBody.innerHTML += "<form enctype=\"multipart/form-data\" id=\"file-update-form\">\n" +
+            //     "        <input type=\"file\" name=\"file\" id=\"fileUpdateInput\" style=\"display: none\">\n" +
+            //     "    </form>";
             console.log(jsonFiles);
             for (let i in jsonFiles) {
                 //console.log(jsonFiles[i]);
@@ -253,12 +258,12 @@ function backButtonClick(permissions, role) {
                 const lastModifiedTime = jsonFiles[i].lastModifiedTime;
                 const size = jsonFiles[i].size;
                 let tr = document.createElement("tr");
+                tr.innerHTML = "<td name=\"filePath\" style=\"display: none;\">" + jsonFiles[i].filePath +"</td>"
                 if (isDir) {
                     console.log("dir je : " + fileName);
-
-                    tr.innerHTML = "<tr>\n" +
+                    tr.innerHTML +=
                         "    <td>\n" +
-                        "        <button type=\"button\" onclick=\"listFiles('" + fileName + "', ' " + permissions + "', '" + role + "' )\"\n" +
+                        "        <button type=\"button\" onclick=\"listFiles('" + filePath + "', ' " + permissions + "', '" + role + "' )\"\n" +
                         "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
                         "            <i class=\"material-icons\">folder</i>\n" +
                         "        </button>\n" +
@@ -318,7 +323,7 @@ function backButtonClick(permissions, role) {
                         console.log("Role is not C");
                         tr.innerHTML +=
                             "    <td>\n" +
-                            "        <button onclick=\"moveFileClick(this, '" + fileName + "' )\" type=\"button\"\n" +
+                            "        <button onclick=\"moveFileClick('" + filePath + "' )\" type=\"button\"\n" +
                             "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
                             "            <i class=\"material-icons\">drive_file_move</i>\n" +
                             "        </button>\n" +
@@ -397,29 +402,6 @@ $(function () {
                     let uploadFormActionAttr = "action=upload_file&file=" + fileName;
                     let size = Math.round(file.size / 1024) / 100;
                     let lastModifiedTime = file.lastModified;
-                    // document.getElementById("files-tbody").innerHTML += "<tr>\n" +
-                    //     "    <td>\n" +
-                    //     "        <form action=" + downloadFormActionAttr + " id=" + fileName + "  method=\"post\">\n" +
-                    //     "            <button type=\"submit\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-                    //     "                <i class=\"material-icons\">description</i>\n" +
-                    //     "            </button>\n" +
-                    //     "        </form>\n" +
-                    //     "    </td>\n" +
-                    //     "    <td name=\"username\" class=\"mdl-data-table__cell--non-numeric\">"+fileName + "\n" +
-                    //     "    </td>\n" +
-                    //     "    <td class=\"mdl-data-table__cell--non-numeric\">" +fileLastModifTime + "\n" +
-                    //     "    </td>\n" +
-                    //     "    <td class=\"mdl-data-table__cell--non-numeric\">" + fileSize + " KB \n" +
-                    //     "    </td>\n" +
-                    //     "    \n" +
-                    //     "    <td>\n" +
-                    //     "        <form action=" + uploadFormActionAttr +" id=" + file.name +"  method=\"post\">\n" +
-                    //     "            <button type=\"submit\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-                    //     "                <i class=\"material-icons\">upload_file</i>\n" +
-                    //     "            </button>\n" +
-                    //     "        </form>\n" +
-                    //     "    </td>\n" +
-                    //     "</tr>";
                     document.getElementById("files-tbody").innerHTML += "<tr>\n" +
                         "    <td>\n" +
                         "        <form action=\"?action=download_file&file=" + fileName + "\" id=" + fileName + " method=\"post\">\n" +
@@ -502,7 +484,6 @@ $(function () {
 
                 // Form data
                 data: new FormData($('#file-update-form')[0]),
-
                 // Tell jQuery not to process data or worry about content-type
                 // You *must* include these options!
                 cache: false,
@@ -540,5 +521,58 @@ $(function () {
                   }*/
             });
         }
+    });
+});
+
+
+
+var fileToMove = null;
+
+function moveFileClick(filePath) {
+    fileToMove = filePath;
+    $("#move-here-button").show();
+    $("#cancel-move-button").show();
+}
+
+$(function () {
+    $("#cancel-move-button").click(function () {
+        $("#move-here-button").hide(1000);
+        $("#cancel-move-button").hide(1000);
+        fileToMove = null;
+    });
+});
+$(function () {
+    $("#move-here-button").click(function () {
+
+        let file = {
+            filePath: fileToMove
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "?action=move_file",
+            cache: false,
+            data: JSON.stringify(file),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function () {
+                listFiles('', 'CRUD', 'A');
+                let notification = document.querySelector('.mdl-js-snackbar');
+                notification.MaterialSnackbar.showSnackbar(
+                    {
+                        message: "File moved sucessfully"
+                    }
+                );
+            },
+            error: function (errorResponse) {
+                console.log(errorResponse.responseText);
+                alert(errorResponse.responseText);
+            }
+        });
+
+
+        $("#move-here-button").hide(1000);
+        $("#cancel-move-button").hide(1000);
+        fileToMove = null;
     });
 });

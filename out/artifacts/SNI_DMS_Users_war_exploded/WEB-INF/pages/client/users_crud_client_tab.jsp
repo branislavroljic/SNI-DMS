@@ -1,5 +1,7 @@
 <%@ page import="bane.model.User" %>
-<%@ page import="bane.model.Role" %><%--    Client tab      --%>
+<%@ page import="bane.model.Role" %>
+
+<%--    Client tab      --%>
 
 <div class="mdl-tabs__panel is-active" id="clients-tab">
   <button id="add-client"
@@ -33,7 +35,7 @@
       <td class="mdl-data-table__cell--non-numeric"><%= u.getIpAddress()%></td>
       <td class="mdl-data-table__cell--non-numeric"><%= u.getPermissions()%></td>
       <td>
-        <button type="button" onclick="deleteUser(this, <%= u.getId() %>)" class="mdl-button mdl-js-button mdl-button--icon">
+        <button type="button" onclick="deleteUser(this, '<%= u.getUsername()%>', <%= u.getId() %>)" class="mdl-button mdl-js-button mdl-button--icon">
           <i class="material-icons">delete</i>
         </button>
       </td>

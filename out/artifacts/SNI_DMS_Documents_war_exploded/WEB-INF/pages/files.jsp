@@ -79,6 +79,15 @@
                 <i class="material-icons">arrow_back</i>
             </button>
 
+                <button id="move-here-button" type="button"
+                        class="dialog-button fab-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+                    <i class="material-icons">get_app</i>
+                </button>
+                <button id="cancel-move-button" type="button"
+                        class="dialog-button fab-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+                    <i class="material-icons">file_download_off</i>
+                </button>
+
             <%--current direcotry --%>
             <h3 class="currentDir" id="curr-dir-text"></h3>
 
@@ -91,6 +100,9 @@
                 </button>
             </form>
 
+                <form enctype="multipart/form-data" id="file-update-form">
+                    <input type="file" name="file" id="fileUpdateInput" style="display: none">
+                </form>
             <%--create dir float button --%>
             <button id="create-dir-button" type="button"
                     class="dialog-button fab-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
@@ -115,11 +127,9 @@
                     </tr>
                     </thead>
                     <tbody id="files-tbody">
-                    <form enctype="multipart/form-data" id="file-update-form">
-                        <input type="file" name="file" id="fileUpdateInput" style="display: none">
-                    </form>
+
                     <%
-                        for (File file : currentDir.listFiles()) {
+                        for (File file : user.getRootDir().listFiles()) {
                             Path fileAsPath = file.toPath();
                             BasicFileAttributes attrs = Files.readAttributes(fileAsPath, BasicFileAttributes.class);
                     %>
@@ -135,7 +145,7 @@
                                      <i class="material-icons">folder</i>
                                  </button>
                              </form>--%>
-                            <button type="button" onclick="listFiles('<%= file.getName() %>', '<%=user.getPermissions()%>', '<%=user.getRole() %>' )"
+                            <button type="button" onclick="listFiles('<%= user.getRootDir().toPath().relativize(file.toPath()).toString() %>', '<%=user.getPermissions()%>', '<%=user.getRole() %>' )"
                                     class="mdl-button mdl-js-button mdl-button--icon">
                                 <i class="material-icons">folder</i>
                             </button>
@@ -164,7 +174,7 @@
                             </button>
                         </td>
                         <td>
-                            <button onclick="moveFileClick(this, '<%= file.getName() %>' )" type="button"
+                            <button onclick="moveFileClick('<%= user.getRootDir().toPath().relativize(file.toPath()).toString() %>' )" type="button"
                                     class="mdl-button mdl-js-button mdl-button--icon">
                                 <i class="material-icons">drive_file_move</i>
                             </button>

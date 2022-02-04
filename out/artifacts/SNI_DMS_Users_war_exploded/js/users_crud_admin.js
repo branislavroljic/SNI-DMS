@@ -4,7 +4,10 @@ function editAdmin(ctl){
     let username = $($(ctl).parents("div").children()[1]).children()[1].innerHTML
 
     let elements = document.getElementById("new_admin_form").elements;
-    elements.username.value = username;
+
+    $('#admin_username').val(username);
+    $('#admin_username').parent().addClass('is-dirty')
+    $('#admin_password').val('');
 
     let dialog = document.getElementById("dialog_admin");
     $("#edit_admin_confirm").off('click').on('click', function () {
@@ -50,9 +53,9 @@ $(function () {
 
 function addAdmin() {
     let new_admin_form = $("#new_admin_form");
-    new_admin_form.validate();
-    if (!new_admin_form.valid())
-        return;
+    // new_admin_form.validate();
+    // if (!new_admin_form.valid())
+    //     return;
     console.log("admin form is valid");
             $.ajax({
                 type: "POST",
@@ -73,7 +76,7 @@ function addAdmin() {
                         "            <button type=\"button\" onclick=\"editAdmin(this)\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
                         "                <i class=\"material-icons\">edit</i>\n" +
                         "            </button>\n" +
-                        "            <button type=\"button\" onclick=\"deleteUser(this, " + newAdmin.id + ")\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
+                        "            <button type=\"button\" onclick=\"deleteUser(this,'" + newAdmin.username + "', " + newAdmin.id + " )\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
                         "                <i class=\"material-icons\">delete</i>\n" +
                         "            </button>\n" +
                         "        </div>";
@@ -97,17 +100,15 @@ function addAdmin() {
                 }
 
             });
-
-
 }
 
 
 function updateAdmin(ctl, Id){
     console.log("Inside editAdmin(ctl, id)")
     let new_admin_form= $("#new_admin_form");
-    new_admin_form.validate();
-    if(!new_admin_form.valid())
-        return;
+    // new_admin_form.validate();
+    // if(!new_admin_form.valid())
+    //     return;
     $.ajax({
         type: "POST",
         url: "?action=edit_admin&Id=" + Id,

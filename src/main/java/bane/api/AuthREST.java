@@ -45,8 +45,6 @@ public class AuthREST {
     @Path(("/login_check"))
     @Consumes(MediaType.APPLICATION_JSON)
     public Response isLoggedIn(LoginCheckRequest loginCheckRequest) {
-
-        System.out.println("EVO ME U REST, username je: " + loginCheckRequest);
         if (cookieService.getCookieUserMap().values().stream()
                 .anyMatch(u -> u.getUsername().equals(loginCheckRequest.getUsername()))) {
             return Response.ok().build();
