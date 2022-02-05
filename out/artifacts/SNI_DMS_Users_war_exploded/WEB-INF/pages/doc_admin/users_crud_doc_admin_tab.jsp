@@ -10,6 +10,7 @@
         <tr>
             <th class="mdl-data-table__cell--non-numeric">Edit</th>
             <th class="mdl-data-table__cell--non-numeric">Username</th>
+            <th class="mdl-data-table__cell--non-numeric">E-mail</th>
             <th class="mdl-data-table__cell--non-numeric">Root dir</th>
             <th >Delete</th>
         </tr>
@@ -26,6 +27,7 @@
                 </button>
             </td>
             <td class="mdl-data-table__cell--non-numeric"><%= u.getUsername() %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= u.getMail() %></td>
             <td class="mdl-data-table__cell--non-numeric"><%= u.getRootDir() %></td>
             <td>
                 <button type="button"  onclick="deleteUser(this, '<%= u.getUsername()%>', <%= u.getId() %>)" class="mdl-button mdl-js-button mdl-button--icon">

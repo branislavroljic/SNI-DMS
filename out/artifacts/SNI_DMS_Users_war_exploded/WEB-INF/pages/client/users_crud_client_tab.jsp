@@ -13,6 +13,7 @@
     <tr>
       <th class="mdl-data-table__cell--non-numeric">Edit</th>
       <th class="mdl-data-table__cell--non-numeric">Username</th>
+      <th class="mdl-data-table__cell--non-numeric">E-mail</th>
       <th class="mdl-data-table__cell--non-numeric">Root directory</th>
       <th class="mdl-data-table__cell--non-numeric">IP Address</th>
       <th class="mdl-data-table__cell--non-numeric">Permissions</th>
@@ -31,6 +32,7 @@
         </button>
       </td>
       <td name="username" class="mdl-data-table__cell--non-numeric"><%= u.getUsername()%></td>
+      <td name="username" class="mdl-data-table__cell--non-numeric"><%= u.getMail()%></td>
       <td class="mdl-data-table__cell--non-numeric"><%= u.getRootDir()%></td>
       <td class="mdl-data-table__cell--non-numeric"><%= u.getIpAddress()%></td>
       <td class="mdl-data-table__cell--non-numeric"><%= u.getPermissions()%></td>

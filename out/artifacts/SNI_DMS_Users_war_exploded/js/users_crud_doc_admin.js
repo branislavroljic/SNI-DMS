@@ -4,15 +4,20 @@ function editDocAdmin(ctl){
     console.log("bio u edit doc");
     let Id = $(ctl).parents("tr").children()[0].innerHTML;
     let username = $(ctl).parents("tr").children()[2].innerHTML;
-    let rootDir = $(ctl).parents("tr").children()[3].innerHTML;
+    let mail = $(ctl).parents("tr").children()[3].innerHTML;
+    let rootDir = $(ctl).parents("tr").children()[4].innerHTML;
 
     let elements = document.getElementById("new_doc_admin_form").elements;
 
     $('#doc_admin_username').val(username);
     $('#doc_admin_username').parent().addClass('is-dirty')
+    $('#doc_admin_mail').val(mail);
+    $('#doc_admin_mail').parent().addClass('is-dirty')
     $('#doc_admin_password').val('');
     $('#doc_admin_root_dir').val(rootDir);
     $('#doc_admin_root_dir').parent().addClass('is-dirty')
+
+    document.getElementById("doc_admin_root_dir").setAttribute("readonly", 'true');
 
     let dialog = document.getElementById("dialog_doc_admin");
 
@@ -21,7 +26,6 @@ function editDocAdmin(ctl){
     });
     $("#edit_doc_admin_confirm").show();
     $("#add_doc_admin_confirm").hide('fast');
-    $("#doc_admin_root_dir").css("display", "none");
     dialog.showModal();
 }
 
@@ -37,9 +41,9 @@ $(function () {
     $("#add-doc-admin").click(function () {
         let dialog = document.getElementById("dialog_doc_admin");
         resetForm();
+        document.getElementById("doc_admin_root_dir").removeAttribute("readonly");
         $("#add_doc_admin_confirm").show();
         $("#edit_doc_admin_confirm").hide('fast');
-        $("#doc_admin_root_dir").css("display", "block");
         dialog.showModal();
     });
 });
@@ -59,9 +63,9 @@ $(function () {
 
 function addDocAdmin() {
     let new_doc_admin_form = $("#new_doc_admin_form");
-    // new_doc_admin_form.validate();
-    // if (!new_doc_admin_form.valid())
-    //     return;
+    new_doc_admin_form.validate();
+    if (!new_doc_admin_form.valid())
+        return;
     console.log("doc admin form is valid");
             $.ajax({
                 type: "POST",
@@ -81,6 +85,7 @@ function addDocAdmin() {
                         "                    </button>\n" +
                         "                </td>\n" +
                         "            <td class=\"mdl-data-table__cell--non-numeric\">" + newDocAdmin.username + "</td>\n" +
+                        "            <td class=\"mdl-data-table__cell--non-numeric\">" + newDocAdmin.mail + "</td>\n" +
                         "            <td class=\"mdl-data-table__cell--non-numeric\">" + newDocAdmin.rootDir + "</td>\n" +
                         "                <td>\n" +
                         "                    <button type=\"button\" onclick=\"deleteUser(this,'" + newDocAdmin.username + "', " + newDocAdmin.id + " )\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
@@ -116,9 +121,9 @@ function addDocAdmin() {
 function updateDocAdmin(ctl, Id){
     console.log("Inside editClient(ctl, id)")
     let new_doc_admin_form= $("#new_doc_admin_form");
-    // new_doc_admin_form.validate();
-    // if(!new_doc_admin_form.valid())
-    //     return;
+    new_doc_admin_form.validate();
+    if(!new_doc_admin_form.valid())
+        return;
     $.ajax({
         type: "POST",
         url: "?action=edit_doc_admin&Id=" + Id,
@@ -130,7 +135,8 @@ function updateDocAdmin(ctl, Id){
 
             $(ctl).parents("tr").children()[0].innerHTML = Id;
             $(ctl).parents("tr").children()[2].innerHTML = updatedClient.username;
-            $(ctl).parents("tr").children()[3].innerHTML = updatedClient.rootDir;
+            $(ctl).parents("tr").children()[3].innerHTML = updatedClient.mail;
+            $(ctl).parents("tr").children()[4].innerHTML = updatedClient.rootDir;
             var notification = document.querySelector('.mdl-js-snackbar');
             notification.MaterialSnackbar.showSnackbar(
                 {
@@ -153,5 +159,11 @@ function updateDocAdmin(ctl, Id){
 }
 
 function resetForm(){
-    document.getElementById("new_doc_admin_form").reset();
+    $('#doc_admin_username').val('');
+    $('#doc_admin_username').parent().removeClass('is-dirty')
+    $('#doc_admin_mail').val('');
+    $('#doc_admin_mail').parent().removeClass('is-dirty')
+    $('#doc_admin_password').val('');
+    $('#doc_admin_root_dir').val('');
+    $('#doc_admin_root_dir').parent().removeClass('is-dirty')
 }

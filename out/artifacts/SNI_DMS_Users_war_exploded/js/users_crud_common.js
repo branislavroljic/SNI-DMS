@@ -13,10 +13,18 @@ function deleteUser(ctl, username, Id) {
                 notification.MaterialSnackbar.showSnackbar({
                     message: "User deleted successfully!"
                 });
-            }, error: function () {
-                notification.MaterialSnackbar.showSnackbar({
-                    message: "Delete failed!"
-                });
+            },
+            error : function (response) {
+                if(response.status == 409){
+                    notification.MaterialSnackbar.showSnackbar({
+                        message: "You cannot delete youself!"
+                    });
+                }else if (response.status == 404){
+                    alert("Delete failed. User not found!");
+                }else{
+                    alert("Delete failed!")
+                }
+
             }
 
         });

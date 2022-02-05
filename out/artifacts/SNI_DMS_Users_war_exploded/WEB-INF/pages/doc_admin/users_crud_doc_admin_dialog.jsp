@@ -8,8 +8,12 @@
         <label class="mdl-textfield__label" for="doc_admin_username">Username</label>
       </div>
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="password" name="password" id="doc_admin_password" required/>
+        <input class="mdl-textfield__input" type="password" name="password" id="doc_admin_password" minlength="8" maxlength="64" required/>
         <label class="mdl-textfield__label" for="doc_admin_password">Password</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="email" name="mail" id="doc_admin_mail" required>
+        <label class="mdl-textfield__label" for="doc_admin_mail">E-mail</label>
       </div>
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input" type="text" name="root_dir" id="doc_admin_root_dir" >

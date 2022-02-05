@@ -8,6 +8,7 @@ function editAdmin(ctl){
     $('#admin_username').val(username);
     $('#admin_username').parent().addClass('is-dirty')
     $('#admin_password').val('');
+    $('#admin_mail').val('');
 
     let dialog = document.getElementById("dialog_admin");
     $("#edit_admin_confirm").off('click').on('click', function () {
@@ -53,9 +54,9 @@ $(function () {
 
 function addAdmin() {
     let new_admin_form = $("#new_admin_form");
-    // new_admin_form.validate();
-    // if (!new_admin_form.valid())
-    //     return;
+    new_admin_form.validate();
+    if (!new_admin_form.valid())
+        return;
     console.log("admin form is valid");
             $.ajax({
                 type: "POST",
@@ -106,9 +107,9 @@ function addAdmin() {
 function updateAdmin(ctl, Id){
     console.log("Inside editAdmin(ctl, id)")
     let new_admin_form= $("#new_admin_form");
-    // new_admin_form.validate();
-    // if(!new_admin_form.valid())
-    //     return;
+    new_admin_form.validate();
+    if(!new_admin_form.valid())
+        return;
     $.ajax({
         type: "POST",
         url: "?action=edit_admin&Id=" + Id,
@@ -142,5 +143,8 @@ function updateAdmin(ctl, Id){
 }
 
 function resetForm(){
-    document.getElementById("new_admin_form").reset();
+    $('#admin_username').val('');
+    $('#admin_username').parent().removeClass('is-dirty');
+    $('#admin_password').val('');
+    $('#admin_mail').val('');
 }

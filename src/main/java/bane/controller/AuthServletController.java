@@ -332,6 +332,8 @@ public class AuthServletController extends HttpServlet {
             //send user on page for token confirmation
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("serviceURL", serviceURL);
+            request.getSession().setAttribute("notification", "");
+
             address = "/WEB-INF/pages/token_login.jsp";
 
         }else{

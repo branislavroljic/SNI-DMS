@@ -9,8 +9,12 @@
                 <label class="mdl-textfield__label" for="client_username">Username</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="password" name="password" id="client_password" required =required/>
+                <input class="mdl-textfield__input" type="password" name="password" id="client_password" minlength="8" maxlength="64" required/>
                 <label class="mdl-textfield__label" for="client_password">Password</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="email" name="mail" id="client_mail" required>
+                <label class="mdl-textfield__label" for="client_mail">E-mail</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" name="ip_address" id="client_ip_address" pattern="(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)_*(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)_*){3}" required>

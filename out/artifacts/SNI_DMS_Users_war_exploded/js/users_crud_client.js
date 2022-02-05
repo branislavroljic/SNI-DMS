@@ -4,9 +4,10 @@ function editClient(ctl){
     console.log("Inside editClient(ctl)")
     let Id = $(ctl).parents("tr").children()[0].innerHTML;
     let username = $(ctl).parents("tr").children()[2].innerHTML;
-    let rootDir = $(ctl).parents("tr").children()[3].innerHTML;
-    let ipAddress = $(ctl).parents("tr").children()[4].innerHTML;
-    let permissions = $(ctl).parents("tr").children()[5].innerHTML;
+    let mail = $(ctl).parents("tr").children()[3].innerHTML;
+    let rootDir = $(ctl).parents("tr").children()[4].innerHTML;
+    let ipAddress = $(ctl).parents("tr").children()[5].innerHTML;
+    let permissions = $(ctl).parents("tr").children()[6].innerHTML;
 
     console.log(permissions);
 
@@ -15,6 +16,8 @@ function editClient(ctl){
 
     $('#client_username').val(username);
     $('#client_username').parent().addClass('is-dirty')
+    $('#client_mail').val(mail);
+    $('#client_mail').parent().addClass('is-dirty')
     $('#client_ip_address').val(ipAddress);
     $('#client_ip_address').parent().addClass('is-dirty')
     $('#client_password').val('');
@@ -56,7 +59,7 @@ $(function () {
 
         let dialog = document.getElementById("dialog_client");
         resetForm();
-        document.getElementById("client_root_dir").setAttribute("readonly", "false");
+        document.getElementById("client_root_dir").removeAttribute("readonly");
         uncheckCheckboxes();
         $("#add_client_confirm").show();
         $("#edit_client_confirm").hide('fast');
@@ -80,9 +83,9 @@ $(function () {
 
 function addClient(){
     let new_client_form = $("#new_client_form");
-    // new_client_form.validate();
-    // if(!new_client_form.valid())
-    //     return;
+    new_client_form.validate();
+    if(!new_client_form.valid())
+        return;
     $.ajax({
         type: "POST",
         url: "?action=add_client",
@@ -104,6 +107,7 @@ function addClient(){
                 "                </button>\n" +
                 "            </td>\n" +
                 "            <td id=\"username\" class=\"mdl-data-table__cell--non-numeric\">" + newClient.username + "</td>\n" +
+                "            <td class=\"mdl-data-table__cell--non-numeric\">" + newClient.mail + "</td>\n" +
                 "            <td class=\"mdl-data-table__cell--non-numeric\">" + newClient.rootDir + "</td>\n" +
                 "            <td class=\"mdl-data-table__cell--non-numeric\">" + newClient.ipAddress + "</td>\n" +
                 "            <td class=\"mdl-data-table__cell--non-numeric\">" + newClient.permissions + "</td>\n" +
@@ -138,9 +142,9 @@ function addClient(){
 function updateClient(ctl, Id){
     console.log("Inside editClient(ctl, id)")
     let new_client_form = $("#new_client_form");
-    // new_client_form.validate();
-    // if(!new_client_form.valid())
-    //     return;
+    new_client_form.validate();
+    if(!new_client_form.valid())
+        return;
     $.ajax({
         type: "POST",
         url: "?action=edit_client&Id=" + Id,
@@ -152,8 +156,9 @@ function updateClient(ctl, Id){
 
             $(ctl).parents("tr").children()[0].innerHTML = Id;
             $(ctl).parents("tr").children()[2].innerHTML = updatedClient.username;
-            $(ctl).parents("tr").children()[4].innerHTML = updatedClient.ipAddress;
-            $(ctl).parents("tr").children()[5].innerHTML = updatedClient.permissions;
+            $(ctl).parents("tr").children()[3].innerHTML = updatedClient.mail;
+            $(ctl).parents("tr").children()[5].innerHTML = updatedClient.ipAddress;
+            $(ctl).parents("tr").children()[6].innerHTML = updatedClient.permissions;
             var notification = document.querySelector('.mdl-js-snackbar');
             notification.MaterialSnackbar.showSnackbar(
                 {
@@ -176,7 +181,15 @@ function updateClient(ctl, Id){
 }
 
 function resetForm(){
-    document.getElementById("new_client_form").reset();
+    $('#client_username').val('');
+    $('#client_username').parent().removeClass('is-dirty')
+    $('#client_mail').val('');
+    $('#client_mail').parent().removeClass('is-dirty')
+    $('#client_ip_address').val('');
+    $('#client_ip_address').parent().removeClass('is-dirty')
+    $('#client_password').val('');
+    $('#client_root_dir').val('');
+    $('#client_root_dir').parent().removeClass('is-dirty')
 }
 function uncheckCheckboxes(){
    document.getElementById("C").parentElement.MaterialCheckbox.uncheck();
