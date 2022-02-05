@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
     <link rel="stylesheet" href="styles/login.css"></link>
     <%--needed for google auth--%>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="js/login_auth.js"></script>
+    <script src="js/form_validity.js"></script>
     <meta name="google-signin-client_id" content="351922003621-rsallgk461e3i3oo8js07rgg0qa5gf2k.apps.googleusercontent.com">
 </head>
 <body>
@@ -29,19 +30,19 @@
                 </div>
 
                 <div class="mdl-card__supporting-text">
-                <form method="POST" action="?action=login">
+                <form method="POST" action="?action=login" id="login_form">
                     <input type="hidden" name="serviceURL" value=<%= session.getAttribute("serviceURL") %>>  <%--moram ocuvati serviceURL zbog redirecta--%>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-dirty is-empty">
-                        <input class="mdl-textfield__input" id="username" name="username" autofocus/>
+                        <input class="mdl-textfield__input" id="username" name="username" autofocus required/>
                         <label class="mdl-textfield__label" for="username">Username</label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-dirty is-empty">
-                        <input class="mdl-textfield__input" type="password" id="password" name="password"/>
+                        <input class="mdl-textfield__input" type="password" id="password" name="password" required/>
                         <label class="mdl-textfield__label" for="password">Password</label>
                         <span class="error-span"><%=session.getAttribute("notification")!=null?session.getAttribute("notification").toString():""%></span>
                     </div>
 
-                    <button type="submit" class="mdl-cell mdl-cell--12-col mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                    <button type="button" onclick="tokenClick()" class="mdl-cell mdl-cell--12-col mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
                         Login
                     </button>
                 </form>

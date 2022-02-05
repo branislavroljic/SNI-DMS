@@ -154,11 +154,11 @@ function updateClient(ctl, Id){
 
             let updatedClient = jsonText;
 
-            $(ctl).parents("tr").children()[0].innerHTML = Id;
-            $(ctl).parents("tr").children()[2].innerHTML = updatedClient.username;
-            $(ctl).parents("tr").children()[3].innerHTML = updatedClient.mail;
-            $(ctl).parents("tr").children()[5].innerHTML = updatedClient.ipAddress;
-            $(ctl).parents("tr").children()[6].innerHTML = updatedClient.permissions;
+            $(ctl).parents("tr").children()[0].innerText = Id;
+            $(ctl).parents("tr").children()[2].innerText = updatedClient.username;
+            $(ctl).parents("tr").children()[3].innerText = updatedClient.mail;
+            $(ctl).parents("tr").children()[5].innerText = updatedClient.ipAddress;
+            $(ctl).parents("tr").children()[6].innerText = updatedClient.permissions;
             var notification = document.querySelector('.mdl-js-snackbar');
             notification.MaterialSnackbar.showSnackbar(
                 {

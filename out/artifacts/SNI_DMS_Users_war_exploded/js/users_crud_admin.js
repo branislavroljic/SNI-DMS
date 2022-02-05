@@ -1,5 +1,5 @@
 function editAdmin(ctl){
-    console.log("bio u edit doc");
+
     let Id = $(ctl).parents("div").children()[0].innerHTML;
     let username = $($(ctl).parents("div").children()[1]).children()[1].innerHTML
 
@@ -119,8 +119,8 @@ function updateAdmin(ctl, Id){
             console.log("bio ovdje");
             let updatedAdmin = jsonText;
 
-            $(ctl).parents("div").children()[0].innerHTML = Id;
-            $($(ctl).parents("div").children()[1]).children()[1].innerHTML = updatedAdmin.username;
+            $(ctl).parents("div").children()[0].innerText = Id;
+            $($(ctl).parents("div").children()[1]).children()[1].innerText = updatedAdmin.username;
             var notification = document.querySelector('.mdl-js-snackbar');
             notification.MaterialSnackbar.showSnackbar(
                 {

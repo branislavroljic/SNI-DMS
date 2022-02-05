@@ -31,6 +31,8 @@
     <orderEntry type="library" name="mysql-connector-java-8.0.13" level="project" />
     <orderEntry type="library" name="aopalliance-repackaged-2.5.0-b42" level="project" />
     <orderEntry type="library" name="osgi-resource-locator-1.0.1" level="project" />
+    <orderEntry type="library" name="lib6" level="project" />
+    <orderEntry type="module" module-name="SNI_DMS_Documents" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:4.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
@@ -47,7 +49,7 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.10.4" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.10" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.10" level="project" />
-    <orderEntry type="library" name="lib6" level="project" />
-    <orderEntry type="module" module-name="SNI_DMS_Documents" />
+    <orderEntry type="library" name="Maven: org.owasp.encoder:encoder:1.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.owasp.encoder:encoder-jsp:1.2.3" level="project" />
   </component>
 </module>

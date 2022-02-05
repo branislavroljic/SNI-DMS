@@ -119,7 +119,7 @@ function addDocAdmin() {
 
 
 function updateDocAdmin(ctl, Id){
-    console.log("Inside editClient(ctl, id)")
+
     let new_doc_admin_form= $("#new_doc_admin_form");
     new_doc_admin_form.validate();
     if(!new_doc_admin_form.valid())
@@ -133,10 +133,10 @@ function updateDocAdmin(ctl, Id){
             console.log("bio ovdje");
             let updatedClient = jsonText;
 
-            $(ctl).parents("tr").children()[0].innerHTML = Id;
-            $(ctl).parents("tr").children()[2].innerHTML = updatedClient.username;
-            $(ctl).parents("tr").children()[3].innerHTML = updatedClient.mail;
-            $(ctl).parents("tr").children()[4].innerHTML = updatedClient.rootDir;
+            $(ctl).parents("tr").children()[0].innerText = Id;
+            $(ctl).parents("tr").children()[2].innerText = updatedClient.username;
+            $(ctl).parents("tr").children()[3].innerText = updatedClient.mail;
+            $(ctl).parents("tr").children()[4].innerText = updatedClient.rootDir;
             var notification = document.querySelector('.mdl-js-snackbar');
             notification.MaterialSnackbar.showSnackbar(
                 {

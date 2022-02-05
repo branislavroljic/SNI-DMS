@@ -21,105 +21,7 @@ function listFiles(directoryName, permissions, role) {
             //     "                                </form>";
             console.log(jsonFiles);
             displayRows(permissions, role, jsonFiles);
-            // for (let i in jsonFiles) {
-            //     //console.log(jsonFiles[i]);
-            //     const fileName = jsonFiles[i].fileName;
-            //     const filePath = jsonFiles[i].filePath;
-            //     const isDir = jsonFiles[i].isDir;
-            //     const lastModifiedTime = jsonFiles[i].lastModifiedTime;
-            //     const size = jsonFiles[i].size;
-            //
-            //     console.log(filePath);
-            //
-            //     let tr = document.createElement("tr");
-            //     tr.innerHTML = "<td name=\"filePath\" style=\"display: none;\">" + filePath + "</td>"
-            //     if (isDir) {
-            //         console.log("dir je : " + fileName);
-            //
-            //         tr.innerHTML +=
-            //             "    <td>\n" +
-            //             "        <button type=\"button\" onclick=\"listFiles('" + filePath + "', ' " + permissions + "', '" + role + "' )\"\n" +
-            //             "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //             "            <i class=\"material-icons\">folder</i>\n" +
-            //             "        </button>\n" +
-            //             "    </td>\n" +
-            //             "    <td name=\"filename\" class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "        " + fileName + "\n" +
-            //             "    </td>\n" +
-            //             "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "       " + lastModifiedTime + "\n" +
-            //             "    </td>\n" +
-            //             "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "        " + size + "\n" +
-            //             "    </td>\n" +
-            //             "    <td></td>\n" +
-            //             "    <td></td>";
-            //         if (role != 'C') {
-            //             tr.innerHTML += "<td>\n" +
-            //                 "        <button onclick=\"deleteFileClick(this, '" + fileName + "' )\" type=\"button\"\n" +
-            //                 "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //                 "            <i class=\"material-icons\">delete</i>\n" +
-            //                 "        </button>\n" +
-            //                 "    </td>"
-            //         }
-            //
-            //     } else {
-            //         console.log("fajl je: " + fileName);
-            //         if (permissions.includes('R')) {
-            //             console.log("permission includes R");
-            //             tr.innerHTML += " <td>\n" +
-            //                 "        <form action=\"?action=download_file&file=" + fileName + "\" id=" + fileName + " method=\"post\">\n" +
-            //                 "                <button type=\"submit\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //                 "                    <i class=\"material-icons\">description</i>\n" +
-            //                 "                </button>\n" +
-            //                 "        </form>\n" +
-            //                 "    </td>\n";
-            //         }
-            //         tr.innerHTML +=
-            //             " <td name=\"filename\" class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "        " + fileName + "\n" +
-            //             "    </td>\n" +
-            //             "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "        " + lastModifiedTime + "\n" +
-            //             "    </td>\n" +
-            //             "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "        " + size + "\n" +
-            //             "    </td>\n";
-            //         if (permissions.includes('U')) {
-            //             console.log("permission includes U");
-            //             tr.innerHTML +=
-            //                 "    <td>\n" +
-            //                 "        <button onclick=\"updateFileClick(this)\" type=\"button\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //                 "            <i class=\"material-icons\">upload_file</i>\n" +
-            //                 "        </button>\n" +
-            //                 "    </td>\n";
-            //         }
-            //         if (role != 'C') {
-            //             console.log("Role is not C");
-            //             tr.innerHTML +=
-            //                 "    <td>\n" +
-            //                 "        <button onclick=\"moveFileClick('" + filePath + "' )\" type=\"button\"\n" +
-            //                 "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //                 "            <i class=\"material-icons\">drive_file_move</i>\n" +
-            //                 "        </button>\n" +
-            //                 "    </td>\n";
-            //         }
-            //         if (permissions.includes('D')) {
-            //             tr.innerHTML +=
-            //                 "    <td>\n" +
-            //                 "        <button onclick=\"deleteFileClick(this, '" + fileName + "' )\" type=\"button\"\n" +
-            //                 "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //                 "            <i class=\"material-icons\">delete</i>\n" +
-            //                 "        </button>\n" +
-            //                 "    </td>\n";
-            //         }
-            //     }
-            //     filesBody.append(tr);
-            // const notification = document.querySelector('.mdl-js-snackbar');
-            // notification.MaterialSnackbar.showSnackbar(
-            //     {
-            //         message: respText
-            //     }
+
 
         },
         error: function () {
@@ -149,43 +51,6 @@ function post(path, params) {
     document.body.appendChild(form);
     form.submit();
 }
-
-//
-// function listsssFiles(ctl){
-//     let dir = {
-//         dirPath : $(ctl).parents("span").children()[0].innerHTML
-//     }
-//     console.log("Dir path: " + dir.dirPath);
-//     $.ajax({
-//         type : "GET",
-//         url : "?action=list_files",
-//         cache : false,
-//         data : JSON.stringify(dir),
-//         success : function (){
-//             document.getElementById("file-list").innerHTML += "<div class=\"mdl-list__item mdl-list__item--two-line\">\n" +
-//                 "    <span class=\"mdl-list__item-primary-content\">\n" +
-//                 "         <span style=\"display : none\"><%= currentDir.toPath().resolve(file.toPath()) %></span>\n" +
-//                 "        <button type=\"button\" onclick=\"listFiles(this)\"\n" +
-//                 "                class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-//                 "            <i class=\"material-icons\">folder</i>\n" +
-//                 "        </button>\n" +
-//                 "        <span><%= file.getName() %> </span>\n" +
-//                 "        <span class=\"mdl-list__item-sub-title\"> <%= Math.round(file.length() / 1000.0) / 100.0 + \"KB\" %> </span>\n" +
-//                 "    </span>`\n" +
-//                 "    <span class=\"mdl-list__item-secondary-content\">\n" +
-//                 "        <button onclick=\"deleteFileClick(this, '<%= file.getName() %>' )\" type=\"button\"\n" +
-//                 "                class=\"mdl-button mdl-list__item-secondary-action mdl-js-button mdl-button--icon\">\n" +
-//                 "            <i class=\"material-icons\">delete</i>\n" +
-//                 "        </button>\n" +
-//                 "    </span>\n" +
-//                 "\n" +
-//                 "</div>";
-//         },
-//         error : function (){
-//
-//         }
-//     });
-// }
 
 /*delete file*/
 function deleteFileClick(ctl, deleteFileName) {
@@ -236,101 +101,7 @@ function backButtonClick(permissions, role) {
             //     "    </form>";
             console.log(jsonFiles);
             displayRows(permissions, role, jsonFiles);
-            // for (let i in jsonFiles) {
-            //     //console.log(jsonFiles[i]);
-            //     const fileName = jsonFiles[i].fileName;
-            //     const filePath = jsonFiles[i].filePath;
-            //     const isDir = jsonFiles[i].isDir;
-            //     const lastModifiedTime = jsonFiles[i].lastModifiedTime;
-            //     const size = jsonFiles[i].size;
-            //     let tr = document.createElement("tr");
-            //     tr.innerHTML = "<td name=\"filePath\" style=\"display: none;\">" + jsonFiles[i].filePath + "</td>"
-            //     if (isDir) {
-            //         console.log("dir je : " + fileName);
-            //         tr.innerHTML +=
-            //             "    <td>\n" +
-            //             "        <button type=\"button\" onclick=\"listFiles('" + filePath + "', ' " + permissions + "', '" + role + "' )\"\n" +
-            //             "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //             "            <i class=\"material-icons\">folder</i>\n" +
-            //             "        </button>\n" +
-            //             "    </td>\n" +
-            //             "    <td name=\"filename\" class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "        " + fileName + "\n" +
-            //             "    </td>\n" +
-            //             "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "       " + lastModifiedTime + "\n" +
-            //             "    </td>\n" +
-            //             "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "        " + size + "\n" +
-            //             "    </td>\n" +
-            //             "    <td></td>\n" +
-            //             "    <td></td>";
-            //         if (role != 'C') {
-            //             tr.innerHTML += "<td>\n" +
-            //                 "        <button onclick=\"deleteFileClick(this, '" + fileName + "' )\" type=\"button\"\n" +
-            //                 "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //                 "            <i class=\"material-icons\">delete</i>\n" +
-            //                 "        </button>\n" +
-            //                 "    </td>"
-            //         }
-            //
-            //     } else {
-            //         console.log("fajl je: " + fileName);
-            //         if (permissions.includes('R')) {
-            //             console.log("permission includes R");
-            //             tr.innerHTML += " <td>\n" +
-            //                 "        <form action=\"?action=download_file&file=" + fileName + "\" id=" + fileName + " method=\"post\">\n" +
-            //                 "                <button type=\"submit\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //                 "                    <i class=\"material-icons\">description</i>\n" +
-            //                 "                </button>\n" +
-            //                 "        </form>\n" +
-            //                 "    </td>\n";
-            //         }
-            //         tr.innerHTML +=
-            //             " <td name=\"filename\" class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "        " + fileName + "\n" +
-            //             "    </td>\n" +
-            //             "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "        " + lastModifiedTime + "\n" +
-            //             "    </td>\n" +
-            //             "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
-            //             "        " + size + "\n" +
-            //             "    </td>\n";
-            //         if (permissions.includes('U')) {
-            //             console.log("permission includes U");
-            //             tr.innerHTML +=
-            //                 "    <td>\n" +
-            //                 "        <button onclick=\"updateFileClick(this)\" type=\"button\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //                 "            <i class=\"material-icons\">upload_file</i>\n" +
-            //                 "        </button>\n" +
-            //                 "    </td>\n";
-            //         }
-            //         if (role != 'C') {
-            //             console.log("Role is not C");
-            //             tr.innerHTML +=
-            //                 "    <td>\n" +
-            //                 "        <button onclick=\"moveFileClick('" + filePath + "' )\" type=\"button\"\n" +
-            //                 "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //                 "            <i class=\"material-icons\">drive_file_move</i>\n" +
-            //                 "        </button>\n" +
-            //                 "    </td>\n";
-            //         }
-            //         if (permissions.includes('D')) {
-            //             tr.innerHTML +=
-            //                 "    <td>\n" +
-            //                 "        <button onclick=\"deleteFileClick(this, '" + fileName + "' )\" type=\"button\"\n" +
-            //                 "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-            //                 "            <i class=\"material-icons\">delete</i>\n" +
-            //                 "        </button>\n" +
-            //                 "    </td>\n";
-            //         }
-            //     }
-            //     filesBody.append(tr);
-            // const notification = document.querySelector('.mdl-js-snackbar');
-            // notification.MaterialSnackbar.showSnackbar(
-            //     {
-            //         message: respText
-            //     }
+
         },
         error : function () {
             alert("error");
@@ -374,7 +145,7 @@ function displayRows(permissions, role, jsonFiles) {
                 "    </td>\n" +
                 "    <td></td>\n" +
                 "    <td></td>";
-            if (role != 'C') {
+            if (role == 'DA') {   //only document admin can delete directory
                 tr.innerHTML += "<td>\n" +
                     "        <button onclick=\"deleteFileClick(this, '" + fileName + "' )\" type=\"button\"\n" +
                     "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
@@ -394,7 +165,8 @@ function displayRows(permissions, role, jsonFiles) {
                     "                </button>\n" +
                     "        </form>\n" +
                     "    </td>\n";
-            }
+            }else tr.innerHTML += " <td></td>";
+
             tr.innerHTML +=
                 " <td name=\"filename\" class=\"mdl-data-table__cell--non-numeric\">\n" +
                 "        " + fileName + "\n" +
@@ -413,9 +185,11 @@ function displayRows(permissions, role, jsonFiles) {
                     "            <i class=\"material-icons\">upload_file</i>\n" +
                     "        </button>\n" +
                     "    </td>\n";
-            }
-            if (role != 'C') {
-                console.log("Role is not C");
+            }else tr.innerHTML += " <td></td>";
+
+            if (role == 'DA') {  //ony DA can move files
+                console.log("role je: " + role);
+                console.log("da li je jednako : " + (role == 'DA'));
                 tr.innerHTML +=
                     "    <td>\n" +
                     "        <button onclick=\"moveFileClick('" + filePath + "' )\" type=\"button\"\n" +
@@ -423,7 +197,8 @@ function displayRows(permissions, role, jsonFiles) {
                     "            <i class=\"material-icons\">drive_file_move</i>\n" +
                     "        </button>\n" +
                     "    </td>\n";
-            }
+            }else tr.innerHTML += " <td></td>";
+
             if (permissions.includes('D')) {
                 tr.innerHTML +=
                     "    <td>\n" +
@@ -432,7 +207,8 @@ function displayRows(permissions, role, jsonFiles) {
                     "            <i class=\"material-icons\">delete</i>\n" +
                     "        </button>\n" +
                     "    </td>\n";
-            }
+            }else tr.innerHTML += " <td></td>";
+
         }
         filesBody.append(tr);
     }
@@ -446,6 +222,14 @@ $(function () {
     });
 });
 
+// var permissions = null;
+// var role = null;
+//
+// function backButtonClick(userPermissions, userRole){
+//         permissions = userPermissions;
+//         role = userRole;
+//          $("#fileInput").click();
+// }
 var ctl = null;
 
 function updateFileClick(ctl) {
@@ -471,26 +255,40 @@ $(function () {
                 data: new FormData($('#file-upload-form')[0]),
 
                 // Tell jQuery not to process data or worry about content-type
-                // You *must* include these options!
+
                 cache: false,
                 contentType: false,
                 processData: false,
 
-                success: function (respText) {
-                    let fileName = file.name;
-                    let downloadFormActionAttr = "?action=download_file&file=" + fileName;
-                    let uploadFormActionAttr = "action=upload_file&file=" + fileName;
-                    let size = Math.round(file.size / 1024) / 100;
-                    let lastModifiedTime = file.lastModified;
-                    document.getElementById("files-tbody").innerHTML += "<tr>\n" +
-                        "    <td>\n" +
-                        "        <form action=\"?action=download_file&file=" + fileName + "\" id=" + fileName + " method=\"post\">\n" +
-                        "                <button type=\"submit\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-                        "                    <i class=\"material-icons\">description</i>\n" +
-                        "                </button>\n" +
-                        "        </form>\n" +
-                        "    </td>\n" +
-                        "    <td name=\"filename\" class=\"mdl-data-table__cell--non-numeric\">\n" +
+                dataType: 'json',
+                success: function (jsonFile) {
+                    // let fileName = file.name;
+                    // let downloadFormActionAttr = "?action=download_file&file=" + fileName;
+                    // let uploadFormActionAttr = "action=upload_file&file=" + fileName;
+                    // let size = Math.round(file.size / 1024) / 100;
+                    // let lastModifiedTime = file.lastModified;
+                    const fileName = jsonFile.fileName;
+                    const filePath = jsonFile.filePath;
+                    const lastModifiedTime = jsonFile.lastModifiedTime;
+                    const size = jsonFile.size;
+                    const permissions = jsonFile.permissions;
+                    const role = jsonFile.role;
+
+                    let tr = document.createElement("tr");
+                    tr.innerHTML = "<td name=\"filePath\" style=\"display: none;\">" + filePath + "</td>";
+
+                    if (permissions.includes('R')) {
+                        console.log("permission includes R");
+                        tr.innerHTML += " <td>\n" +
+                            "        <form action=\"?action=download_file&file=" + fileName + "\" id=" + fileName + " method=\"post\">\n" +
+                            "                <button type=\"submit\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
+                            "                    <i class=\"material-icons\">description</i>\n" +
+                            "                </button>\n" +
+                            "        </form>\n" +
+                            "    </td>\n";
+                    }else tr.innerHTML += " <td></td>";
+                    tr.innerHTML +=
+                        " <td  class=\"mdl-data-table__cell--non-numeric\">\n" +
                         "        " + fileName + "\n" +
                         "    </td>\n" +
                         "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
@@ -498,51 +296,49 @@ $(function () {
                         "    </td>\n" +
                         "    <td class=\"mdl-data-table__cell--non-numeric\">\n" +
                         "        " + size + "\n" +
-                        "    </td>\n" +
+                        "    </td>\n";
+
+                    //always can update
+                    tr.innerHTML +=
                         "    <td>\n" +
                         "        <button onclick=\"updateFileClick(this)\" type=\"button\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
                         "            <i class=\"material-icons\">upload_file</i>\n" +
                         "        </button>\n" +
-                        "    </td>\n" +
-                        "    <td>\n" +
-                        "        <button onclick=\"moveFileClick(this, '" + fileName + "' )\" type=\"button\"\n" +
-                        "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-                        "            <i class=\"material-icons\">drive_file_move</i>\n" +
-                        "        </button>\n" +
-                        "    </td>\n" +
-                        "    <td>\n" +
-                        "        <button onclick=\"deleteFileClick(this, '" + fileName + "' )\" type=\"button\"\n" +
-                        "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-                        "            <i class=\"material-icons\">delete</i>\n" +
-                        "        </button>\n" +
-                        "    </td>\n" +
-                        "</tr>";
+                        "    </td>\n";
+
+                    if (role == 'DA') {  //ony DA can move files
+                        tr.innerHTML +=
+                            "    <td>\n" +
+                            "        <button onclick=\"moveFileClick('" + filePath + "' )\" type=\"button\"\n" +
+                            "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
+                            "            <i class=\"material-icons\">drive_file_move</i>\n" +
+                            "        </button>\n" +
+                            "    </td>\n";
+                    }else tr.innerHTML += " <td></td>";
+                    if (permissions.includes('D')) {
+                        tr.innerHTML +=
+                            "    <td>\n" +
+                            "        <button onclick=\"deleteFileClick(this, '" + fileName + "' )\" type=\"button\"\n" +
+                            "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
+                            "            <i class=\"material-icons\">delete</i>\n" +
+                            "        </button>\n" +
+                            "    </td>\n";
+                    }else tr.innerHTML += " <td></td>";
+
+                    let filesBody = document.getElementById("files-tbody");
+                    filesBody.append(tr);
+
+
                     const notification = document.querySelector('.mdl-js-snackbar');
                     notification.MaterialSnackbar.showSnackbar(
                         {
-                            message: respText
+                            message: "File uploaded sucessfully!"
                         }
                     );
                 },
-                error: function (responseText) {
-                    alert(responseText);
+                error: function () {
+                    alert("File upload failed!");
                 }
-                // Custom XMLHttpRequest
-                /*  xhr: function () {
-                      var myXhr = $.ajaxSettings.xhr();
-                      if (myXhr.upload) {
-                          // For handling the progress of the upload
-                          myXhr.upload.addEventListener('progress', function (e) {
-                              if (e.lengthComputable) {
-                                  $('progress').attr({
-                                      value: e.loaded,
-                                      max: e.total,
-                                  });
-                              }
-                          }, false);
-                      }
-                      return myXhr;
-                  }*/
             });
         }
     });
@@ -552,8 +348,7 @@ $(function () {
 $(function () {
     $("#fileUpdateInput").change(function () {
         let file = this.files[0];
-        console.log("File name: " + file.name);
-        console.log($(ctl).parents("tr").children()[2].innerHTML)
+
         if (file.size > 1024 * 1024) {
             alert('File cannot be bigger then 1MB');
         } else {
@@ -570,35 +365,24 @@ $(function () {
                 contentType: false,
                 processData: false,
 
-                success: function (respText) {
-                    $(ctl).parents("tr").children()[2].innerHTML = file.lastModified;
-                    $(ctl).parents("tr").children()[3].innerHTML = file.size;
+                dataType :'json',
+                success: function (jsonFile) {
+                    const lastModifiedTime = jsonFile.lastModifiedTime;
+                    const size = jsonFile.size;
+
+                    $(ctl).parents("tr").children()[2].innerHTML = lastModifiedTime;
+                    $(ctl).parents("tr").children()[3].innerHTML = size;
                     const notification = document.querySelector('.mdl-js-snackbar');
                     notification.MaterialSnackbar.showSnackbar(
                         {
-                            message: respText
+                            message: "File updated successfully!"
                         }
                     );
                 },
                 error: function (responseText) {
                     alert(responseText);
                 }
-                // Custom XMLHttpRequest
-                /*  xhr: function () {
-                      var myXhr = $.ajaxSettings.xhr();
-                      if (myXhr.upload) {
-                          // For handling the progress of the upload
-                          myXhr.upload.addEventListener('progress', function (e) {
-                              if (e.lengthComputable) {
-                                  $('progress').attr({
-                                      value: e.loaded,
-                                      max: e.total,
-                                  });
-                              }
-                          }, false);
-                      }
-                      return myXhr;
-                  }*/
+
             });
         }
     });

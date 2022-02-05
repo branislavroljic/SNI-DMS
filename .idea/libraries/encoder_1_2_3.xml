@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="encoder-1.2.3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/SNI_DMS_Users_war_exploded/WEB-INF/lib/encoder-1.2.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

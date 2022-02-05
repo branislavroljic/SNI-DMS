@@ -1,5 +1,6 @@
 <%@ page import="bane.model.User" %>
 <%@ page import="bane.model.Role" %>
+<%@ page import="org.owasp.encoder.Encode" %>
 
 <%--    Client tab      --%>
 
@@ -25,19 +26,19 @@
       if(u.getRole().equals(Role.C)){
     %>
     <tr>
-      <td name="Id" style="display: none;"><%= u.getId()%></td>
+      <td name="Id" style="display: none;"><%= Encode.forHtmlContent(u.getId() + "")%></td>
       <td class="mdl-data-table__cell--non-numeric">
         <button type="button" onclick="editClient(this)" class="mdl-button mdl-js-button mdl-button--icon">
           <i class="material-icons">edit</i>
         </button>
       </td>
-      <td name="username" class="mdl-data-table__cell--non-numeric"><%= u.getUsername()%></td>
-      <td name="username" class="mdl-data-table__cell--non-numeric"><%= u.getMail()%></td>
-      <td class="mdl-data-table__cell--non-numeric"><%= u.getRootDir()%></td>
-      <td class="mdl-data-table__cell--non-numeric"><%= u.getIpAddress()%></td>
-      <td class="mdl-data-table__cell--non-numeric"><%= u.getPermissions()%></td>
+      <td name="username" class="mdl-data-table__cell--non-numeric"><%= Encode.forHtmlContent(u.getUsername())%></td>
+      <td name="username" class="mdl-data-table__cell--non-numeric"><%= Encode.forHtmlContent(u.getMail())%></td>
+      <td class="mdl-data-table__cell--non-numeric"><%= Encode.forHtmlContent(u.getRootDir().toString())%></td>
+      <td class="mdl-data-table__cell--non-numeric"><%= Encode.forHtmlContent(u.getIpAddress())%></td>
+      <td class="mdl-data-table__cell--non-numeric"><%= Encode.forHtmlContent(u.getPermissions())%></td>
       <td>
-        <button type="button" onclick="deleteUser(this, '<%= u.getUsername()%>', <%= u.getId() %>)" class="mdl-button mdl-js-button mdl-button--icon">
+        <button type="button" onclick="deleteUser(this, '<%= Encode.forHtmlContent(u.getUsername())%>', <%= Encode.forHtmlContent(u.getId() + "") %>)" class="mdl-button mdl-js-button mdl-button--icon">
           <i class="material-icons">delete</i>
         </button>
       </td>

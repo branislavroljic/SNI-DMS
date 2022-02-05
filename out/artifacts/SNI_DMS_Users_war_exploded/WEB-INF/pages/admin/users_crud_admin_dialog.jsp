@@ -8,7 +8,7 @@
         <label class="mdl-textfield__label" for="admin_username">Username</label>
       </div>
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="password" name="password" id="admin_password" minlength="8" maxlength="64" required/>
+        <input class="mdl-textfield__input" type="password" name="password" id="admin_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,64}$" required/>
         <label class="mdl-textfield__label" for="admin_password">Password</label>
       </div>
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

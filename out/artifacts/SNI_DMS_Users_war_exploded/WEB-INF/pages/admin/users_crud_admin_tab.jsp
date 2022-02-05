@@ -1,5 +1,6 @@
 <%@ page import="bane.model.User" %>
 <%@ page import="bane.model.Role" %>
+<%@ page import="org.owasp.encoder.Encode" %>
 
 <div class="mdl-tabs__panel" id="admins-tab">
     <button id="add-admin"
@@ -18,12 +19,12 @@
                 <span style="display : none"><%= u.getId()%></span>
                 <span class="mdl-list__item-primary-content">
   <i class="material-icons mdl-list__item-icon">person</i>
-          <span><%= u.getUsername()%></span>
+          <span><%= Encode.forHtmlContent(u.getUsername())%></span>
         </span>
                 <button type="button" onclick="editAdmin(this)" class="mdl-button mdl-js-button mdl-button--icon">
                     <i class="material-icons">edit</i>
                 </button>
-                <button type="button"  onclick="deleteUser(this, '<%= u.getUsername()%>', <%= u.getId() %>)" class="mdl-button mdl-js-button mdl-button--icon">
+                <button type="button"  onclick="deleteUser(this, '<%= Encode.forHtmlContent(u.getUsername()) %>', <%= u.getId() %>)" class="mdl-button mdl-js-button mdl-button--icon">
                     <i class="material-icons">delete</i>
                 </button>
             </div>
