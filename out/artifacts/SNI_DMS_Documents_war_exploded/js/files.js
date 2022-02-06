@@ -24,8 +24,11 @@ function listFiles(directoryName, permissions, role) {
 
 
         },
-        error: function () {
-            alert("error");
+        error: function (response) {
+            if(response.status == 401) {
+                location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Documents_war_exploded";
+            }
+            alert("List file failed!");
         }
     });
 }
@@ -78,6 +81,9 @@ function deleteFileClick(ctl, deleteFileName) {
                 );
             },
             error: function (errorResponse) {
+                if(errorResponse.status == 401) {
+                    location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Documents_war_exploded";
+                }
                 console.log(errorResponse.responseText);
                 alert(errorResponse.responseText);
             }
@@ -103,8 +109,11 @@ function backButtonClick(permissions, role) {
             displayRows(permissions, role, jsonFiles);
 
         },
-        error : function () {
-            alert("error");
+        error : function (errorResponse) {
+            if(errorResponse.status == 401) {
+                location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Documents_war_exploded";
+            }
+            alert("Listfiles failed!");
         }
     });
 }
@@ -336,7 +345,10 @@ $(function () {
                         }
                     );
                 },
-                error: function () {
+                error: function (errorResponse) {
+                    if(errorResponse.status == 401) {
+                        location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Documents_war_exploded";
+                    }
                     alert("File upload failed!");
                 }
             });
@@ -434,7 +446,10 @@ $(function () {
                 hideMoveButtons();
             },
             error: function (errorResponse) {
-                alert(errorResponse.responseText);
+                if(errorResponse.status == 401) {
+                    location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Documents_war_exploded";
+                }
+                alert("Move file failed!");
             }
         });
 

@@ -41,7 +41,7 @@ $(function (){
                 let tr = document.createElement("tr");
                     tr.innerHTML +=
                         "    <td>\n" +
-                        "        <button type=\"button\" onclick=\"listFiles('" + dirPath + "', 'CRUD', 'A' )\"\n" +
+                        "        <button type=\"button\" onclick=\"listFiles('" + dirPath + "', 'CRUD', 'DA' )\"\n" +
                         "            class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
                         "            <i class=\"material-icons\">folder</i>\n" +
                         "        </button>\n" +
@@ -72,7 +72,10 @@ $(function (){
                 );
             },
             error : function (errorResponse){
-                alert(errorResponse.responseText);
+                if(errorResponse.status == 401) {
+                    location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Documents_war_exploded";
+                }
+                alert("Directory creation failed!");
             }
         });
     });

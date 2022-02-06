@@ -24,7 +24,11 @@
     right: 20px;
     top: 80px;
 }
-
+#refresh-button{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
 .header {
     height: 70px;
     font-size: 48px;

@@ -14,14 +14,16 @@ function deleteUser(ctl, username, Id) {
                     message: "User deleted successfully!"
                 });
             },
-            error : function (response) {
-                if(response.status == 409){
+            error: function (response) {
+                if (response.status == 401) {
+                    location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Users_war_exploded";
+                } else if (response.status == 409) {
                     notification.MaterialSnackbar.showSnackbar({
                         message: "You cannot delete youself!"
                     });
-                }else if (response.status == 404){
+                } else if (response.status == 404) {
                     alert("Delete failed. User not found!");
-                }else{
+                } else {
                     alert("Delete failed!")
                 }
 

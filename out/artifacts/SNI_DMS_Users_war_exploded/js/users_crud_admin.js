@@ -91,7 +91,10 @@ function addAdmin() {
                     let dialog = document.getElementById("dialog_admin");
                     dialog.close();
                 },
-                error: function () {
+                error: function (errorResponse) {
+                    if (errorResponse.status == 401) {
+                        location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Users_war_exploded";
+                    }
                     let notification = document.querySelector('.mdl-js-snackbar');
                     notification.MaterialSnackbar.showSnackbar(
                         {
@@ -130,7 +133,10 @@ function updateAdmin(ctl, Id){
             let dialog = document.getElementById("dialog_admin");
             dialog.close();
         },
-        error: function () {
+        error: function (errorResponse) {
+            if (errorResponse.status == 401) {
+                location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Users_war_exploded";
+            }
             let notification = document.querySelector('.mdl-js-snackbar');
             notification.MaterialSnackbar.showSnackbar(
                 {
