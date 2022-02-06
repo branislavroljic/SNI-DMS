@@ -118,8 +118,8 @@ public class AuthServletController extends HttpServlet {
             } catch (InvalidKeySpecException e) {
                 e.printStackTrace();
             }
-                                                                              //OAuth2 login is enabled on DocsApp only
-        } else if(action!= null  && LOGIN_WITH_OAUTH_ACTION.equals(action) && DOCS_APP_URL.equals(serviceURL)) {
+                                                                              //OAuth2 login is enabled on DocsApp only (deleted )
+        } else if(action!= null  && LOGIN_WITH_OAUTH_ACTION.equals(action)) {
 
             /*the integrity of the token received by HTTPS POST, must be verified*/
             GoogleIdToken.Payload payload = null;

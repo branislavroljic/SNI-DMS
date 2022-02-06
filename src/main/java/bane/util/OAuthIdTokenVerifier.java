@@ -1,4 +1,3 @@
-/*
 package bane.util;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -14,7 +13,6 @@ public class OAuthIdTokenVerifier {
 
     private static final String GOOGLE_CLIENT_ID = "351922003621-rsallgk461e3i3oo8js07rgg0qa5gf2k.apps.googleusercontent.com";
 
-
     public static GoogleIdToken.Payload getVerifiedPayload(String tokenString) throws IOException, GeneralSecurityException {
 
         GsonFactory gsonFactory = new GsonFactory();
@@ -28,4 +26,3 @@ public class OAuthIdTokenVerifier {
         }
     }
 }
-*/

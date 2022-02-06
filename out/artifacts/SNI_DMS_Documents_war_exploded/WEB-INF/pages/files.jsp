@@ -1,3 +1,4 @@
+<%@ page import="java.io.File" %>
 <%@ page import="java.nio.file.Path" %>
 <%@ page import="java.nio.file.attribute.BasicFileAttributes" %>
 <%@ page import="java.nio.file.Files" %><%--
@@ -21,7 +22,7 @@
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="js/files.js"></script>
     <script src="js/create_dir_dialog.js"></script>
-    <script src="js/move_file_dialog.js"></script>
+  <%--  <script src="js/move_file_dialog.js"></script>--%>
     <link rel="stylesheet" href="styles/dialog-polyfill.css"></link>
     <link rel="stylesheet" href="styles/files.css"></link>
     <link rel="stylesheet" href="styles/create_dir_dialog.css"></link>
