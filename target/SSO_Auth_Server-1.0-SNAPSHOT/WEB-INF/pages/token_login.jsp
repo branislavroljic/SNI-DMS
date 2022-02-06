@@ -25,7 +25,7 @@
 
             <div class="mdl-card__supporting-text">
                 <form method="POST" action="?action=token_login">
-
+                    <input type="hidden" name="serviceURL" value=<%= session.getAttribute("serviceURL") %>>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-dirty is-empty">
                         <input class="mdl-textfield__input" id="token" name="token" autofocus/>
                         <label class="mdl-textfield__label" for="token">Token</label>

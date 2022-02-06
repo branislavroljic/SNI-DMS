@@ -17,10 +17,27 @@
     <link rel="stylesheet" href="styles/login.css"></link>
     <script src="js/form_validity.js"></script>
     <%--needed for google auth--%>
-    <script src="js/login_auth.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <meta name="google-signin-client_id"
           content="351922003621-rsallgk461e3i3oo8js07rgg0qa5gf2k.apps.googleusercontent.com">
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+
+        function onLoad() {
+            gapi.load('auth2', function() {
+                gapi.auth2.init();
+            });
+        }
+    </script>
+
+    <script src="js/login_auth.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
 </head>
 <body>
 <div class="mdl-layout mdl-js-layout main-div">
@@ -34,7 +51,8 @@
             <div class="mdl-card__supporting-text">
                 <form method="POST" action="?action=login" id="login_form">
                     <input type="hidden" name="serviceURL"
-                           value=<%= session.getAttribute("serviceURL") %>> <%--moram ocuvati serviceURL zbog redirecta--%>
+                           value="https://localhost:8443/SNI_DMS_Documents_war_exploded"> <%--moram ocuvati serviceURL zbog redirecta--%>
+<%--                    <% session.setAttribute("serviceURL", "https://localhost:8443/SNI_DMS_Documents_war_exploded");%>--%>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-dirty is-empty">
                         <input class="mdl-textfield__input" id="username" name="username" autofocus required/>
                         <label class="mdl-textfield__label" for="username">Username</label>

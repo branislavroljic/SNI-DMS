@@ -30,7 +30,7 @@
 
                 <div class="mdl-card__supporting-text">
                 <form method="POST" action="?action=login" id="login_form">
-                    <input type="hidden" name="serviceURL" value=<%= session.getAttribute("serviceURL") %>>  <%--moram ocuvati serviceURL zbog redirecta--%>
+                    <input type="hidden" name="serviceURL" value="https://localhost:8443/SNI_DMS_Users_war_exploded/">  <%--moram ocuvati serviceURL zbog redirecta--%>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" id="username" name="username" autofocus required/>
                         <label class="mdl-textfield__label" for="username">Username</label>

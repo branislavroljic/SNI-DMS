@@ -36,7 +36,7 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" id="a_logout" href="?action=logout">Logout</a>
+                <a class="mdl-navigation__link" href="?action=logout">Logout</a>
             </nav>
         </div>
         <!-- Tabs -->
