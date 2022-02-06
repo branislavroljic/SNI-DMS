@@ -1,6 +1,4 @@
-
-
-function editDocAdmin(ctl){
+function editDocAdmin(ctl) {
     console.log("bio u edit doc");
     let Id = $(ctl).parents("tr").children()[0].innerHTML;
     let username = $(ctl).parents("tr").children()[2].innerHTML;
@@ -48,13 +46,15 @@ $(function () {
     });
 });
 
-$(function (){
-    $("#add_doc_admin_confirm").click(function () {addDocAdmin();});
+$(function () {
+    $("#add_doc_admin_confirm").click(function () {
+        addDocAdmin();
+    });
 })
 
 $(function () {
     let dialog = document.getElementById("dialog_doc_admin");
-    dialog.querySelector('.close').addEventListener('click', function() {
+    dialog.querySelector('.close').addEventListener('click', function () {
         document.getElementById("new_doc_admin_form").reset();
         dialog.close();
     });
@@ -67,65 +67,62 @@ function addDocAdmin() {
     if (!new_doc_admin_form.valid())
         return;
     console.log("doc admin form is valid");
-            $.ajax({
-                type: "POST",
-                url: "?action=add_doc_admin",
-                data: new_doc_admin_form.serialize(),
-                cache: false,
-                success: function (jsonText) {
-                    console.log("bio ovdje");
-                    let newDocAdmin = jsonText;
+    $.ajax({
+        type: "POST",
+        url: "?action=add_doc_admin",
+        data: new_doc_admin_form.serialize(),
+        cache: false,
+        success: function (jsonText) {
+            console.log("bio ovdje");
+            let newDocAdmin = jsonText;
 
-                    console.log(newDocAdmin);
-                    document.getElementById("doc_admin_tbody").innerHTML += "<tr>\n" +
-                        "                <td style=\"display: none;\">" + newDocAdmin.id + "</td>\n" +
-                        "                <td class=\"mdl-data-table__cell--non-numeric\">\n" +
-                        "                    <button type=\"button\" onclick=\"editDocAdmin(this)\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-                        "                        <i class=\"material-icons\">edit</i>\n" +
-                        "                    </button>\n" +
-                        "                </td>\n" +
-                        "            <td class=\"mdl-data-table__cell--non-numeric\">" + newDocAdmin.username + "</td>\n" +
-                        "            <td class=\"mdl-data-table__cell--non-numeric\">" + newDocAdmin.mail + "</td>\n" +
-                        "            <td class=\"mdl-data-table__cell--non-numeric\">" + newDocAdmin.rootDir + "</td>\n" +
-                        "                <td>\n" +
-                        "                    <button type=\"button\" onclick=\"deleteUser(this,'" + newDocAdmin.username + "', " + newDocAdmin.id + " )\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-                        "                        <i class=\"material-icons\">delete</i>\n" +
-                        "                    </button>\n" +
-                        "                </td>\n" +
-                        "            </tr>";
+            console.log(newDocAdmin);
+            document.getElementById("doc_admin_tbody").innerHTML += "<tr>\n" +
+                "                <td style=\"display: none;\">" + newDocAdmin.id + "</td>\n" +
+                "                <td class=\"mdl-data-table__cell--non-numeric\">\n" +
+                "                    <button type=\"button\" onclick=\"editDocAdmin(this)\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
+                "                        <i class=\"material-icons\">edit</i>\n" +
+                "                    </button>\n" +
+                "                </td>\n" +
+                "            <td class=\"mdl-data-table__cell--non-numeric\">" + newDocAdmin.username + "</td>\n" +
+                "            <td class=\"mdl-data-table__cell--non-numeric\">" + newDocAdmin.mail + "</td>\n" +
+                "            <td class=\"mdl-data-table__cell--non-numeric\">" + newDocAdmin.rootDir + "</td>\n" +
+                "                <td>\n" +
+                "                    <button type=\"button\" onclick=\"deleteUser(this,'" + newDocAdmin.username + "', " + newDocAdmin.id + " )\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
+                "                        <i class=\"material-icons\">delete</i>\n" +
+                "                    </button>\n" +
+                "                </td>\n" +
+                "            </tr>";
 
-                    var notification = document.querySelector('.mdl-js-snackbar');
-                    notification.MaterialSnackbar.showSnackbar(
-                        {
-                            message: "Document admin successfully added!"
-                        }
-                    );
-                    let dialog = document.getElementById("dialog_doc_admin");
-                    dialog.close();
-                },
-                error: function (errorResponse) {
-                    if (errorResponse.status == 401) {
-                        location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Users_war_exploded";
-                    }
-                    let notification = document.querySelector('.mdl-js-snackbar');
-                    notification.MaterialSnackbar.showSnackbar(
-                        {
-                            message: "Adding document admin failed!"
-                        }
-                    );
+            var notification = document.querySelector('.mdl-js-snackbar');
+            notification.MaterialSnackbar.showSnackbar(
+                {
+                    message: "Document admin successfully added!"
                 }
+            );
+            let dialog = document.getElementById("dialog_doc_admin");
+            dialog.close();
+        },
+        error: function (errorResponse) {
+            if (errorResponse.status == 401) {
+                location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Users_war_exploded";
+            } else if (errorResponse.status == 400) {
+                alert(errorResponse.responseText);
+            } else {
+                alert("Add document admin failed!")
+            }
+        }
 
-            });
-
+    });
 
 }
 
 
-function updateDocAdmin(ctl, Id){
+function updateDocAdmin(ctl, Id) {
 
-    let new_doc_admin_form= $("#new_doc_admin_form");
+    let new_doc_admin_form = $("#new_doc_admin_form");
     new_doc_admin_form.validate();
-    if(!new_doc_admin_form.valid())
+    if (!new_doc_admin_form.valid())
         return;
     $.ajax({
         type: "POST",
@@ -152,19 +149,17 @@ function updateDocAdmin(ctl, Id){
         error: function (errorResponse) {
             if (errorResponse.status == 401) {
                 location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Users_war_exploded";
+            }else if (errorResponse.status == 400) {
+                alert(errorResponse.responseText);
+            } else {
+                alert("Edit document admin failed!")
             }
-            let notification = document.querySelector('.mdl-js-snackbar');
-            notification.MaterialSnackbar.showSnackbar(
-                {
-                    message: "Update failed!"
-                }
-            );
         }
 
     });
 }
 
-function resetForm(){
+function resetForm() {
     $('#doc_admin_username').val('');
     $('#doc_admin_username').parent().removeClass('is-dirty')
     $('#doc_admin_mail').val('');

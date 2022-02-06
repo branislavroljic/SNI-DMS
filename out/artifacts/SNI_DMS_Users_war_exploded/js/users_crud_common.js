@@ -23,6 +23,8 @@ function deleteUser(ctl, username, Id) {
                     });
                 } else if (response.status == 404) {
                     alert("Delete failed. User not found!");
+                } else if (response.status == 400) {
+                        alert(response.responseText);
                 } else {
                     alert("Delete failed!")
                 }

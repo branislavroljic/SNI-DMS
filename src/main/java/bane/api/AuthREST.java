@@ -1,10 +1,12 @@
 package bane.api;
 
+import bane.exception.MaliciousRequestException;
 import bane.model.User;
 import bane.request.JwtTokenRequest;
 import bane.request.LoginCheckRequest;
 import bane.service.CookieService;
 import bane.service.OTPService;
+import bane.util.ActionsUtil;
 import bane.util.JWTUtil;
 
 import javax.ws.rs.*;
@@ -21,8 +23,8 @@ public class AuthREST {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJWT(JwtTokenRequest jwtTokenRequest) {
-        //System.out.println("URL : " + jwtTokenRequest.getServiceURL());
-        System.out.println(jwtTokenRequest.getOtp());
+
+
         //File privKeyFile = new File(getClass().getClassLoader().getResource("../keys/auth_priv.key").getPath()); ne nadje fajl
         File privKeyFile = new File("C:\\Users\\legion\\Desktop\\IV godina BANE\\Sigurnost na Internetu\\auth_priv.pem");
         String username = otpService.getUsernamelByOtp(jwtTokenRequest.getOtp());
@@ -45,6 +47,8 @@ public class AuthREST {
     @Path(("/login_check"))
     @Consumes(MediaType.APPLICATION_JSON)
     public Response isLoggedIn(LoginCheckRequest loginCheckRequest) {
+
+        // ActionsUtil.validateParameters(null, loginCheckRequest.getUsername(), null, null);
         if (cookieService.getCookieUserMap().values().stream()
                 .anyMatch(u -> u.getUsername().equals(loginCheckRequest.getUsername()))) {
             return Response.ok().build();

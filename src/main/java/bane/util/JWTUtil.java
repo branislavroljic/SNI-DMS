@@ -38,6 +38,7 @@ public class JWTUtil {
     public static RSAPrivateKey readPrivateKey(File file) throws Exception {
         String key = new String(Files.readAllBytes(file.toPath()), Charset.defaultCharset());
 
+        System.out.println();
        // System.out.println(key);
         String privateKeyPEM = key
                 .replace("-----BEGIN PRIVATE KEY-----", "")

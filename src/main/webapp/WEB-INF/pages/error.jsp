@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-    <h2 style="color: red">ERROR RODJENI</h2>
+    <h2 style="color: red"><%= session.getAttribute("errorMessage")%></h2>
 </body>
 </html>

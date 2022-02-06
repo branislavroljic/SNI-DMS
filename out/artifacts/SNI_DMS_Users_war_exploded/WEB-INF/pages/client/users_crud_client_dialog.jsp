@@ -5,7 +5,7 @@
     <div class="mdl-dialog__content">
         <form id="new_client_form">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" name="username" id="client_username" required autofocus>
+                <input class="mdl-textfield__input" type="text" name="username" id="client_username" required  pattern="^[a-zA-Z0-9 .-]+${3}" autofocus>
                 <label class="mdl-textfield__label" for="client_username">Username</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

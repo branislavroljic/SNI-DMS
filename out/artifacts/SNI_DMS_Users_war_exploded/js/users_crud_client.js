@@ -1,6 +1,4 @@
-
-
-function editClient(ctl){
+function editClient(ctl) {
     console.log("Inside editClient(ctl)")
     let Id = $(ctl).parents("tr").children()[0].innerHTML;
     let username = $(ctl).parents("tr").children()[2].innerHTML;
@@ -25,14 +23,9 @@ function editClient(ctl){
     $('#client_root_dir').parent().addClass('is-dirty')
 
 
-   document.getElementById("client_root_dir").setAttribute("readonly", 'true');
+    document.getElementById("client_root_dir").setAttribute("readonly", 'true');
 
     uncheckCheckboxes();
-    //permissions
-    // $("#C").prop("checked", permissions.includes("C"));
-    // $("#R").prop("checked", permissions.includes("R"));
-    // $("#U").prop("checked", permissions.includes("U"));
-    // $("#D").prop("checked", permissions.includes("D"));
 
     let dialog = document.getElementById("dialog_client");
 
@@ -68,23 +61,25 @@ $(function () {
     });
 });
 
-$(function (){
-    $("#add_client_confirm").click(function () {addClient();});
+$(function () {
+    $("#add_client_confirm").click(function () {
+        addClient();
+    });
     resetForm();
 })
 
 $(function () {
     let dialog = document.getElementById("dialog_client");
-    dialog.querySelector('.close').addEventListener('click', function() {
+    dialog.querySelector('.close').addEventListener('click', function () {
         document.getElementById("new_client_form").reset();
         dialog.close();
     });
 });
 
-function addClient(){
+function addClient() {
     let new_client_form = $("#new_client_form");
     new_client_form.validate();
-    if(!new_client_form.valid())
+    if (!new_client_form.valid())
         return;
     $.ajax({
         type: "POST",
@@ -130,23 +125,21 @@ function addClient(){
         error: function (errorResponse) {
             if (errorResponse.status == 401) {
                 location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Users_war_exploded";
+            } else if (errorResponse.status == 400) {
+                alert(errorResponse.responseText);
+            } else {
+                alert("Add client failed!")
             }
-            let notification = document.querySelector('.mdl-js-snackbar');
-            notification.MaterialSnackbar.showSnackbar(
-                {
-                    message: "Nije uspjesno dodato!"
-                }
-            );
         }
 
     });
 }
 
-function updateClient(ctl, Id){
+function updateClient(ctl, Id) {
     console.log("Inside editClient(ctl, id)")
     let new_client_form = $("#new_client_form");
     new_client_form.validate();
-    if(!new_client_form.valid())
+    if (!new_client_form.valid())
         return;
     $.ajax({
         type: "POST",
@@ -174,19 +167,17 @@ function updateClient(ctl, Id){
         error: function (errorResponse) {
             if (errorResponse.status == 401) {
                 location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Users_war_exploded";
+            } else if (errorResponse.status == 400) {
+                alert(errorResponse.responseText);
+            } else {
+                alert("Update client failed!")
             }
-            let notification = document.querySelector('.mdl-js-snackbar');
-            notification.MaterialSnackbar.showSnackbar(
-                {
-                    message: "Update failed!"
-                }
-            );
         }
 
     });
 }
 
-function resetForm(){
+function resetForm() {
     $('#client_username').val('');
     $('#client_username').parent().removeClass('is-dirty')
     $('#client_mail').val('');
@@ -197,97 +188,10 @@ function resetForm(){
     $('#client_root_dir').val('');
     $('#client_root_dir').parent().removeClass('is-dirty')
 }
-function uncheckCheckboxes(){
-   document.getElementById("C").parentElement.MaterialCheckbox.uncheck();
-   document.getElementById("R").parentElement.MaterialCheckbox.uncheck();
-   document.getElementById("U").parentElement.MaterialCheckbox.uncheck();
-   document.getElementById("D").parentElement.MaterialCheckbox.uncheck();
+
+function uncheckCheckboxes() {
+    document.getElementById("C").parentElement.MaterialCheckbox.uncheck();
+    document.getElementById("R").parentElement.MaterialCheckbox.uncheck();
+    document.getElementById("U").parentElement.MaterialCheckbox.uncheck();
+    document.getElementById("D").parentElement.MaterialCheckbox.uncheck();
 }
-
-/*$(function () {
-//    $("#add_client_confirm").click(function () {
-//         let request = new XMLHttpRequest();
-//         request.onreadystatechange = function () {
-//             if (request.readyState == 4 && request.status == 200) {
-//                 var notification = document.querySelector('.mdl-js-snackbar');
-//                 notification.MaterialSnackbar.showSnackbar(
-//                     {
-//                         message: "Uspjesno dodato!"
-//                     }
-//                 );
-//             } else if (request.readyState == 4 && request.status == 500) {
-//                 let notification = document.querySelector('.mdl-js-snackbar');
-//                 notification.MaterialSnackbar.showSnackbar(
-//                     {
-//                         message: "Nije uspjesno dodato!"
-//                     }
-//                 );
-//             }
-//         }
-//             request.open("POST", "?action=add_client", true);
-//             request.send($("#new_client_form").serialize());
-//
-//     })
-// });
-    $("#add_client_confirm").click(function () {
-        let new_client_form = $("#new_client_form");
-        new_client_form.validate();
-        if(!new_client_form.valid())
-            return;
-        $.ajax({
-            type: "POST",
-            url: "?action=add_client",
-            data: new_client_form.serialize(),
-            cache: false,
-            success: function (jsonText) {
-                console.log("bio ovdje");
-                let newClient = jsonText;
-
-                let tr = document.createElement("tr");
-
-                let tdId = document.createElement("td");
-                tdId.style.display = "none";
-                tdId.innerHTML = newClient.Id;
-
-
-                let editButton = document.createElement("button");
-                let i = document.createElement("i");
-
-                console.log(newClient);
-                document.getElementById("client_tbody").innerHTML += "<tr>\n" +
-                    "                <td id=\"Id\" style=\"display: none;\">" + newClient.Id + "</td>\n" +
-                    "            <td class=\"mdl-data-table__cell--non-numeric\">\n" +
-                    "                <button class=\"mdl-button mdl-js-button mdl-button--icon\" onclick=\"deleteUser(this)\">\n" +
-                    "                    <i class=\"material-icons\">edit</i>\n" +
-                    "                </button>\n" +
-                    "            </td>\n" +
-                    "            <td id=\"username\" class=\"mdl-data-table__cell--non-numeric\">" + newClient.username + "</td>\n" +
-                    "            <td class=\"mdl-data-table__cell--non-numeric\">" + newClient.rootDir + "</td>\n" +
-                    "            <td class=\"mdl-data-table__cell--non-numeric\">" + newClient.ipAddress + "</td>\n" +
-                    "            <td class=\"mdl-data-table__cell--non-numeric\">" + newClient.permissions + "</td>\n" +
-                    "            <td>\n" +
-                    "                <button type=\"button\" onclick=\"deleteUser(this)\" class=\"mdl-button mdl-js-button mdl-button--icon\">\n" +
-                    "                    <i class=\"material-icons\">delete</i>\n" +
-                    "                </button>\n" +
-                    "            </td>\n" +
-                    "            </tr>";
-
-                var notification = document.querySelector('.mdl-js-snackbar');
-                notification.MaterialSnackbar.showSnackbar(
-                    {
-                        message: "Uspjesno dodato!"
-                    }
-                );
-            },
-            error: function () {
-                let notification = document.querySelector('.mdl-js-snackbar');
-                notification.MaterialSnackbar.showSnackbar(
-                    {
-                        message: "Nije uspjesno dodato!"
-                    }
-                );
-            }
-
-        });
-    });
-});*/

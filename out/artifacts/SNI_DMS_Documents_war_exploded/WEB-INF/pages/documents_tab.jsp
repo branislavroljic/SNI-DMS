@@ -34,11 +34,11 @@
             <i class="material-icons">file_upload</i>
         </button>
     </form>
-
+        <%}%>
     <form enctype="multipart/form-data" id="file-update-form">
         <input type="file" name="file" id="fileUpdateInput" style="display: none">
     </form>
-    <%}%>
+
 
     <% if (user.getRole().equals(Role.DA)) {%>
     <%--create dir float button --%>
@@ -61,7 +61,7 @@
                 <th class="mdl-data-table__cell--non-numeric"></th>
                 <th class="mdl-data-table__cell--non-numeric">Name</th>
                 <th class="mdl-data-table__cell--non-numeric">Last modified time</th>
-                <th class="mdl-data-table__cell--non-numeric">Size</th>
+                <th class="mdl-data-table__cell--non-numeric">Size(KB)</th>
                 <th></th>
             </tr>
             </thead>
@@ -109,7 +109,7 @@
                 </td>
                 <td class="mdl-data-table__cell--non-numeric"><%= attrs.lastModifiedTime() %>
                 </td>
-                <td class="mdl-data-table__cell--non-numeric"><%= Math.round(attrs.size() / 1000.0) / 100.0 + "KB" %>
+                <td class="mdl-data-table__cell--non-numeric"><%= Math.round(file.length() / 1000.0) / 100.0 + "KB" %>
                 </td>
                 <% if (!file.isDirectory()) {%>
                 <% if (user.getPermissions().contains("U")) {%>
@@ -119,7 +119,9 @@
                         <i class="material-icons">upload_file</i>
                     </button>
                 </td>
-                <%}%>
+                <%} else {%>
+                <td></td>
+                <% } %>
                 <% if (user.getRole().equals(Role.DA)) {%>
                 <td>
                     <button onclick="moveFileClick('<%= user.getRootDir().toPath().relativize(file.toPath()).toString() %>' )"
@@ -128,19 +130,23 @@
                         <i class="material-icons">drive_file_move</i>
                     </button>
                 </td>
-                <%}%>
+                <%} else {%>
+                <td></td>
+                <% } %>
                 <%} else {%>
                 <td></td>
                 <td></td>
                 <% } %>
-                <% if (user.getPermissions().contains("D")) {%>
+                <% if (user.getPermissions().contains("D") && !file.isDirectory() || user.getRole().equals(Role.DA)) {%>
                 <td>
                     <button onclick="deleteFileClick(this, '<%= file.getName() %>' )" type="button"
                             class="mdl-button mdl-js-button mdl-button--icon">
                         <i class="material-icons">delete</i>
                     </button>
                 </td>
-                <%}%>
+                <%} else {%>
+                <td></td>
+                <% } %>
             </tr>
             <%
                 }%>

@@ -4,7 +4,7 @@
   <div class="mdl-dialog__content">
     <form id="new_admin_form">
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="text" name="username" id="admin_username" required>
+        <input class="mdl-textfield__input" type="text" name="username" id="admin_username" pattern="^[a-zA-Z0-9 .-]+${3}" required>
         <label class="mdl-textfield__label" for="admin_username">Username</label>
       </div>
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

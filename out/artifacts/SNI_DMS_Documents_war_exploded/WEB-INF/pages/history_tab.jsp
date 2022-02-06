@@ -9,10 +9,11 @@
 <%--    Client tab      --%>
 <button id="refresh-button" type="button"
         class="dialog-button fab-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
-    <i class="material-icons">get_app</i>
+    <i class="material-icons">refresh</i>
 </button>
 
 <div class="mdl-tabs__panel is-active" id="history-tab">
+    <div class="content">
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--4dp">
         <thead>
         <tr>
@@ -36,4 +37,5 @@
 
         </tbody>
     </table>
+    </div>
 </div>

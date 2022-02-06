@@ -1,3 +1,19 @@
+function openFolder(ctl) {
+    alert($(ctl).children()[1].innerHTML);
+    let fileName = $(ctl).children()[1].innerHTML;
+    let form = document.getElementById(fileName);
+    alert(form.action);
+    form.submit();
+    /*$.ajax({
+        type: "POST",
+        url: "?action=list_files&file=" + fileName,
+        cache: false,
+        success: function (jsonText) {
+        },
+        error : function (){
+        }
+    }*/
+}
 
 function listFiles(directoryName, permissions, role) {
     let dirInfo = {
@@ -55,16 +71,14 @@ function post(path, params) {
     form.submit();
 }
 
+
 /*delete file*/
 function deleteFileClick(ctl, deleteFileName) {
-
-    console.log(deleteFileName);
 
     let res = confirm("Do you want to delete file: " + deleteFileName);
     let file = {
         fileName: deleteFileName
     }
-
     if (res) {
         $.ajax({
             type: "DELETE",
@@ -81,9 +95,6 @@ function deleteFileClick(ctl, deleteFileName) {
                 );
             },
             error: function (errorResponse) {
-                if(errorResponse.status == 401) {
-                    location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Documents_war_exploded";
-                }
                 console.log(errorResponse.responseText);
                 alert(errorResponse.responseText);
             }
@@ -132,7 +143,6 @@ function displayRows(permissions, role, jsonFiles) {
         console.log(filePath);
 
         let tr = document.createElement("tr");
-        tr.innerHTML = "<td name=\"filePath\" style=\"display: none;\">" + filePath + "</td>"
         if (isDir) {
             console.log("dir je : " + fileName);
 
@@ -284,7 +294,6 @@ $(function () {
                     const role = jsonFile.role;
 
                     let tr = document.createElement("tr");
-                    tr.innerHTML = "<td name=\"filePath\" style=\"display: none;\">" + filePath + "</td>";
 
                     if (permissions.includes('R')) {
                         console.log("permission includes R");
@@ -382,7 +391,7 @@ $(function () {
                     const lastModifiedTime = jsonFile.lastModifiedTime;
                     const size = jsonFile.size;
 
-                    $(ctl).parents("tr").children()[2].innerHTML = lastModifiedTime;
+                    $(ctl).parents("tr").children()[3].innerHTML = lastModifiedTime;
                     $(ctl).parents("tr").children()[3].innerHTML = size;
                     const notification = document.querySelector('.mdl-js-snackbar');
                     notification.MaterialSnackbar.showSnackbar(
@@ -391,10 +400,12 @@ $(function () {
                         }
                     );
                 },
-                error: function (responseText) {
-                    alert(responseText);
+                error: function (errorResponse) {
+                    if(errorResponse.status == 401) {
+                        location.href = "https://localhost:8443/SSO_Auth_Server_war_exploded/?serviceURL=https://localhost:8443/SNI_DMS_Documents_war_exploded";
+                    }
+                    alert("File update failed!");
                 }
-
             });
         }
     });

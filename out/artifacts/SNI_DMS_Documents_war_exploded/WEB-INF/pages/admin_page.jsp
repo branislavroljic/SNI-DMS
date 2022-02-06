@@ -20,6 +20,7 @@
         <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
         <link rel="stylesheet" href="styles/dialog-polyfill.css"></link>
         <link rel="stylesheet" href="styles/files.css"></link>
+        <link rel="stylesheet" href="styles/history.css"></link>
         <script src="js/logout.js"></script>
         <script src="js/files.js"></script>
         <script src="js/history.js"></script>
